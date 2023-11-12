@@ -1,0 +1,1652 @@
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+    <style>
+        
+    body {
+        background-color: #040c27;
+        font-family: Arial, sans-serif;
+        margin: 10px;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        min-height: 50vh;
+    }
+
+    .container {
+        background-color: #f0f0f0;
+        border-radius: 10px;
+        padding: 40px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 10px;
+    }
+
+    .personal-info-box {
+        background-color: #040c27;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    margin-top: auto; /* Align the bottom to the content */
+    width: 400%; /* Adjust the width as needed for your layout */
+    max-width: 1670px; /* Set a max width for the box */
+    }
+
+    .personal-info-box h3 {
+        color: #ffffff;
+        margin-top: 0;
+    }
+
+    .ui.container {
+        background-color: #f0f0f0;
+        border-radius: 10px;
+        padding: 70px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        /* max-width: 450px; */
+        max-width: 1750px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .field-container {
+    display: flex;
+    justify-content: space-between;
+    }
+
+    .field {
+        flex: 5; /* Adjust the width as needed */
+        margin-right: 70px;
+    }
+
+    h1.ui.header {
+        text-align: center;
+        color: #333;
+    }
+
+    .ui.form {
+        margin: 0 auto;
+    }
+
+    .field {
+        margin-bottom: 15px;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    button.ui.button.primary {
+    background-color: #ffffff;
+    color: #000000;
+    border: 2px solid #000000;
+    border-radius: 10px;
+    padding: 10px;
+    width: 280px; /* Adjust the width to your desired value */
+    font-size: 20px;
+    transition: background-color 0.3s, color 0.3s;
+    }
+
+    button.ui.button.primary:hover {
+        background-color: #48a1b8;
+    }
+
+    .ui.message {
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .field input::placeholder {
+        font-style: italic;
+        color: #999;
+    }
+
+    .custom-input {
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 8px;
+        font-size: 16px;
+        width: 100%;
+    }
+
+    .error-message {
+        color: red;
+        margin-bottom: 10px;
+    }
+
+    #id_date_of_birth { /* Use the actual ID */
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #3498db; /* Add your preferred border color */
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #f0f0f0; /* Add your preferred background color */
+    color: #333; /* Add your preferred text color */
+    }
+    .fixed-width-label {
+        width: 250px; /* Adjust the width as needed */
+    }
+    #success-message {
+    display: block;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    animation: fadeIn 1s ease-in-out forwards;
+    }
+
+    .centered-message {
+    text-align: center;
+    font-size: 18px;
+    }
+
+    @keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+    }
+    .custom-button {
+    display: inline-block;
+    padding: 10px 83px; /* Adjust the padding values to make the button wider */
+    background-color: #3498db;
+    color: #fff;
+    border: 2px solid #2980b9;
+    border-radius: 10px;
+    font-size: 16px;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+    }
+
+    .custom-button:hover {
+    background-color: #2980b9;
+    }
+
+    .file-upload-button {
+        cursor: pointer;
+        padding: 10px 20px;
+        background-color: #3498db;
+        color: rgb(255, 255, 255);
+        border: none;
+        border-radius: 5px;
+        display: inline-block;
+        text-align: center;
+    }
+    </style>
+<head>
+    <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Student Application Form</title>
+      <link rel="apple-touch-icon" sizes="128x128" href="{% static 'images/icon/apple-touch-icon.png' %}"> 
+      <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/icon/favicon-32x32.png' %}"> 
+      <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/icon/favicon-16x16.png' %}"> 
+      <link rel="manifest" href="{% static 'images/icon/site.webmanifest' %}">    
+</head>
+<body>
+    <div class="ui container">
+
+        <!-- BACK BUTTON FOR REGISTRATION TO SIGN IN PAGE -->
+        <a href="{% url 'std_login' %}" title="Go back to Sign In Page" style="display: flex; align-items: center; text-decoration: none;">
+            <img src="{% static 'images/icon/left-arrow.png' %}" alt="Bell Icon" style="height: 2.0rem;">
+            <span style="margin-left: 10px; color: black; font-weight: bold;">BACK TO SIGN IN PAGE</span>
+        </a>
+        <!-- end of coding -->
+
+        <br>
+        <h1 class="ui header">Student Application Form</h1>
+
+        <div class="ui segment">
+            <div class="personal-info-box"> <!-- Enclose in a styled box -->
+                <h3 class="ui header">Personal Information</h3>
+            </div>
+
+       <!-- start coding all fields -->
+        <form class="ui form" action="{% url 'register_user' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+    
+            {{ form.non_field_errors }}
+
+            <div class="field-container">
+                <div class="field text-left">
+                    <div style="margin-bottom: 10px;">
+                        <label for="{{ form.time_received.id_for_label }}">Date & Time:</label>
+                    </div>
+                    <input type="text" name="{{ form.time_received.name }}" id="{{ form.time_received.id_for_label }}" value="{{ form.instance.time_received|date:'Y-m-d H:i:s' }}" readonly disabled>
+                    <div class="error-message" id="time_received" style="display: none; color: red; margin-bottom: 10px;">Required time received.</div>
+                </div>
+            </div>
+
+            <!-- DropDown box for registration if the user is in UMAK or OUTSIDER -->
+
+            <!-- work in progress (it does not save in DJango Admin)-->
+            <div class="field-container">
+                <div class="field text-left">
+                    <div style="margin-bottom: 10px;">
+                        <label for="registration-type">Registration Type:</label>
+                    </div>
+                    <select name="registration-type" id="registration-type" onchange="changeIDLabel(this)">
+                        <option value="umak-student">UMAK Graduate (SHS)</option>
+                        <option value="outsider">Different School / Outsider</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- end of coding -->
+
+            <!-- Create a flex container for the Student ID and Another Field -->
+            <div class="field-container">
+                <!-- Student ID field -->
+                <div class="field text-left" id="idField">
+                    <div style="margin-bottom: 10px;">
+                        <label for="student_id">Existing Student UMAK ID:</label>
+                        <span class="required-label">*</span>
+                    </div>
+                    <input type="text" name="student_id" id="student_id" placeholder="Enter your unique UMAK Student ID" class="custom-input" required>
+                    <div class="error-message" id="student-id-error" style="display: none; color: red; margin-bottom: 10px;">Required student ID.</div>
+                </div>
+            
+                <div class="field text-left">
+                    <div style="margin-bottom: 10px;">
+                        <label for="{{ form.first_name.id_for_label }}">First Name:</label><span class="required-label"> *</span>
+                    </div>
+                    <input type="text" name="{{ form.first_name.name }}" id="{{ form.first_name.id_for_label }}" placeholder="Enter your first name" required>
+                    <div class="error-message" id="first-name-error" style="display: none;">Required First name.</div>
+                </div>   
+
+            </div>
+            <!-- End of field-container -->
+
+            <!-- script for Student ID and Outsider -->
+            <script>
+                function changeIDLabel(select) {
+                    var idField = document.getElementById('idField');
+                    var label = idField.querySelector('label[for="student_id"]');
+                    var input = idField.querySelector('input[name="student_id"]');
+            
+                    if (select.value === 'outsider') {
+                        label.textContent = 'Different School /  Outsider ID:';
+                        input.placeholder = 'Auto-generated Outsider ID';
+                        input.readOnly = true;
+                        generateOutsiderID(input);
+                    } else {
+                        label.textContent = 'Exisiting Student UMAK ID:';
+                        input.placeholder = 'Enter your unique UMAK Student ID';
+                        input.readOnly = false;
+                        input.value = ''; // Clear the textbox for UMAK Graduate
+                    }
+                }
+            
+                function generateOutsiderID(input) {
+                    var numbers = '0123456789';
+                    var id = '';
+            
+                    for (var i = 0; i < 6; i++) {
+                        
+                        id += numbers.charAt(Math.floor(Math.random() * numbers.length));
+
+                    }
+            
+                    input.value = id;
+                }
+            </script>
+            <!-- end of coding -->
+
+            <!-- Last Name fields 
+            <div class="field">
+                <div style="margin-bottom: 10px;">
+                    <label for="{{ form.last_name.id_for_label }}">Last Name:</label><span class="required-label"> *</span>
+                </div>
+                <input type="text" name="{{ form.last_name.name }}" id="{{ form.last_name.id_for_label }}" placeholder="Enter your last name" required>
+                <div class="error-message" id="full-name-error" style="display: none;">Required Last name.</div>
+            </div> -->
+
+            <!-- First name container -->
+            <div class="field-container">
+                <!-- First name fields -->
+            <div class="field text-left">
+                <div style="margin-bottom: 10px;">
+                    <label for="{{ form.middle_name.id_for_label }}">Middle Name:</label>
+                    <span class="required-label"> *</span>
+                </div>
+                <input type="text" name="{{ form.middle_name.name }}" id="{{ form.middle_name.id_for_label }}" placeholder="Enter your middle name" required>
+                <div class="error-message" id="middle-name-error" style="display: none; color: red; margin-bottom: 10px;">Required Middle name.</div>
+                </div>
+                
+                <div class="field text-left">
+                    <div style="margin-bottom: 10px;">
+                        <label for="{{ form.last_name.id_for_label }}">Last Name:</label><span class="required-label"> *</span>
+                    </div>
+                    <input type="text" name="{{ form.last_name.name }}" id="{{ form.last_name.id_for_label }}" placeholder="Enter your last name" required>
+                    <div class="error-message" id="full-name-error" style="display: none;">Required Last name.</div>
+                    
+                </div>
+
+            </div>
+
+            <!-- Middle name fields
+            <div class="field">
+                <div style="margin-bottom: 10px;">
+                    <label for="{{ form.middle_name.id_for_label }}">Middle Name:</label>
+                </div>
+                <input type="text" name="{{ form.middle_name.name }}" id="{{ form.middle_name.id_for_label }}" placeholder="Enter your middle name">
+                <div class="error-message" id="middle-name-error" style="display: none;">Required Middle name.</div>
+            </div> -->
+
+            <!-- date of birth container -->
+            <div class="field-container">
+                <!-- date of birth fields -->
+            <div class="field text-left">
+                <div style="margin-bottom: 10px;">
+                    <label for="{{ form.date_of_birth.id_for_label }}">Date of Birth:</label><span class="required-label"> *</span>
+                </div>
+                <input type="date" name="{{ form.date_of_birth.name }}" id="{{ form.date_of_birth.id_for_label }}" class="custom-input" oninput="this.value = this.value.slice(0, 10);" required>
+                <div class="error-message" id="date-of-birth-error" style="display: none; color: red; margin-bottom: 10px;">Invalid Date of Birth.</div>
+            </div>
+
+            <!-- Another Field to the right of date of birth -->
+            <div class="field text-left">
+                <div style="margin-bottom: 10px;">
+                    <label for="{{ form.place_of_birth.id_for_label }}">Place of Birth:</label><span class="required-label"> *</span>
+                </div>
+                <input type="text" name="{{ form.place_of_birth.name }}" id="{{ form.place_of_birth.id_for_label }}" placeholder="Enter your place of birth" required>
+                <div class="error-message" id="place-of-birth-error" style="display: none;">Invalid Place of Birth.</div>
+                </div>
+            </div>
+            
+            <!-- place of birth fields
+            <div class="field">
+                <div style="margin-bottom: 10px;">
+                    <label for="{{ form.place_of_birth.id_for_label }}">Place of Birth:</label>
+                </div>
+                <input type="text" name="{{ form.place_of_birth.name }}" id="{{ form.place_of_birth.id_for_label }}" placeholder="Enter your place of birth">
+                <div class="error-message" id="place-of-birth-error" style="display: none;">Invalid Place of Birth.</div>
+            </div> -->
+
+            <!-- gender selection container -->
+            <div class="field-container">
+                <!-- gender selection fields -->
+            <div class="field text-left">
+                <div style="margin-bottom: 10px;">
+                    <label for="{{ form.gender.id_for_label }}">Gender:</label>
+                </div>
+                <select name="{{ form.gender.name }}" id="{{ form.gender.id_for_label }}" class="custom-input" required>
+                    <option value="">Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+                <div class="error-message" id="gender-error" style="display: none;">Invalid Gender.</div>
+            </div>
+
+            <!-- Another Field to the right of gender -->
+            <div class="field text-left">
+                <div style="margin-bottom: 10px;">
+                    <label for="{{ form.religion.id_for_label }}">Religion:</label><span class="required-label"> *</span>
+                </div>
+                <select name="{{ form.religion.name }}" id="{{ form.religion.id_for_label }}" class="custom-input" required>
+                    <option value="" selected>Select your religion</option>
+                    {% for religion_value, religion_label in form.religion.field.choices %}
+                        <option value="{{ religion_value }}">{{ religion_label }}</option>
+                    {% endfor %}
+                </select>
+                <div class="error-message" id="religion-error" style="display: none;">Invalid Religion.</div>
+                </div>
+            </div>
+
+            <!-- religion fields 
+            <div class="field">
+                <div style="margin-bottom: 10px;">
+                    <label for="{{ form.religion.id_for_label }}">Religion:</label>
+                </div>
+                <input type="text" name="{{ form.religion.name }}" id="{{ form.religion.id_for_label }}" placeholder="Enter your religion">
+                <div class="error-message" id="religion-error" style="display: none;">Invalid Religion.</div>
+            </div> -->
+
+            <!-- civil status container -->
+            <div class="field-container">
+                <!-- civil status fields -->
+            <div class="field text-left">
+                <div style="margin-bottom: 10px;">
+                    <label for="{{ form.civil_status.id_for_label }}">Civil Status:</label>
+                </div>
+                <select name="{{ form.civil_status.name }}" id="{{ form.civil_status.id_for_label }}" class="custom-input" required>
+                    <option value="">Select Civil Status</option>
+                    <option value="Single">Single</option>
+                    <option value="Married">Married</option>
+                    <option value="Divorced">Divorced</option>
+                    <option value="Widowed">Widowed</option>
+                    <option value="Other">Other</option>
+                </select>
+                <div class="error-message" id="civil-status-error" style="display: none;">Invalid Civil Status.</div>
+            </div>
+
+            <!-- Another Field to the right of civil status -->
+            <div class="field text-left">
+                <div style="margin-bottom: 10px;">
+                    <label for="{{ form.citizenship.id_for_label }}">Citizenship:</label><span class="required-label"> *</span>
+                </div>
+                <select name="{{ form.citizenship.name }}" id="{{ form.citizenship.id_for_label }}" class="custom-input" required>
+                    <option value="" selected>Select your citizenship</option>
+                    {% for value, label in form.citizenship.field.choices %}
+                        <option value="{{ value }}">{{ label }}</option>
+                    {% endfor %}
+                </select>
+                <div class="error-message" id="citizenship-error" style="display: none;">Invalid Citizenship.</div> 
+                </div>
+            </div>
+
+            <!-- Citizenship fields 
+            <div class="field">
+                <div style="margin-bottom: 10px;">
+                    <label for="{{ form.citizenship.id_for_label }}">Citizenship:</label>
+                </div>
+                <input type="text" name="{{ form.citizenship.name }}" id="{{ form.citizenship.id_for_label }}" placeholder="Enter your citizenship">
+                <div class="error-message" id="citizenship-error" style="display: none;">Invalid Citizenship.</div>
+            </div> -->
+
+            <!-- Contact No. fields -->
+            <div class="field-container">
+                <!-- contact no. fields -->
+            <div class="field text-left">
+                <div style="margin-bottom: 10px;">
+                    <label for="{{ form.contact_number.id_for_label }}">Contact Number:</label><span class="required-label">*</span>
+                </div>
+                <input type="text" name="{{ form.contact_number.name }}" id="{{ form.contact_number.id_for_label }}" placeholder="Enter your contact number" class="custom-input" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11);" required>
+                <div class="error-message" id="contact-number-error" style="display: none; color: red; margin-bottom: 10px;">Invalid Contact No. (11 digits required).</div>
+            </div>
+
+            <!-- Another Field to the right of contact no. -->
+            <div class="field text-left">
+                <div style="margin-bottom: 10px;">
+                    <label for="{{ form.email.id_for_label }}">Email Address:</label><span class="required-label"> *</span>
+                    <div style="font-size: medium; margin-top: 7px;">(Use Personal Email Address or School Email Address Provided)</div>
+                </div>
+                <input type="text" name="{{ form.email.name }}" id="{{ form.email.id_for_label }}" placeholder="example123@mail.com" required oninput="validateEmailFormat(this)">
+                <div class="error-message" id="email-error" style="display: none;">Please enter a valid email address.</div>
+                </div>
+            </div>
+            
+            <!-- Script for Validations in Email -->
+            <script>
+               function validateEmailFormat(input) {
+            const email = input.value;
+            const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+            const isValidEmail = emailRegex.test(email);
+            const errorElement = document.getElementById("email-error");
+
+            if (!isValidEmail) {
+                errorElement.style.display = "block";
+            } else {
+                errorElement.style.display = "none";
+            }
+            }
+            </script>
+            <!-- end of coding -->
+     
+            <!-- active email address fields 
+            <div class="field">
+                <div style="margin-bottom: 10px;">
+                    <label for="{{ form.email.id_for_label }}">Email Address:</label><span class="required-label">*</span>
+                </div>
+                <input type="text" name="{{ form.email.name }}" id="{{ form.email.id_for_label }}" placeholder="example123@mail.com" required>
+                <div class="error-message" id="email-error" style="display: none;">Required email address.</div>
+            </div> -->   
+        
+            <!-- start of coding in password fields -->
+            <div class="field-container">
+                <!-- password fields -->
+                <div class="field text-left">
+                <div style="margin-bottom: 10px;">
+                    <label for="id_password">Create Password:</label><span class="required-label">*</span>
+                </div>
+                <div class="ui action input">
+                    <input type="password" name="password" id="id_password" placeholder="Enter your password" required>
+                    <input type="text" id="password_display" style="display: none;">
+                    <button class="ui button icon toggle-password" type="button">👁️</button>
+                </div>
+                <div class="error-message" id="password-error" style="display: none;">Required password.</div>
+            </div>
+
+            <!-- Another Field to the right of password -->
+            <div class="field text-left">
+                <div style="margin-bottom: 10px;">
+                    <label for="id_confirm_password">Confirm Password:</label><span class="required-label"> *</span>
+                </div>
+                <div class="ui action input">
+                    <input type="password" name="confirm_password" id="id_confirm_password" placeholder="Confirm your password" required>
+                    <input type="text" id="confirm_password_display" style="display: none;">
+                    <button class="ui button icon toggle-confirm-password" type="button">👁️</button>
+                </div>
+                <div class="error-message" id="confirm-password-error" style="display: none;">Required confirm password.</div>
+                </div>
+            </div>
+            
+            <!-- confirm password fields 
+            <div class="field">
+                <div style="margin-bottom: 10px;">
+                    <label for="id_confirm_password">Confirm Password:</label><span class="required-label">*</span>
+                </div>
+                <div class="ui action input">
+                    <input type="password" name="confirm_password" id="id_confirm_password" placeholder="Confirm your password" required>
+                    <input type="text" id="confirm_password_display" style="display: none;">
+                    <button class="ui button icon toggle-confirm-password" type="button">👁️</button>
+                </div>
+                <div class="error-message" id="confirm-password-error" style="display: none;">Required confirm password.</div>
+            </div> -->
+            
+
+            <div id="password-mismatch-error" style="display: none; color: red;">Password do not match.</div>
+            <br>
+            
+
+            <script>
+                // JavaScript code to toggle password visibility
+                document.addEventListener("DOMContentLoaded", function() {
+                    // Your existing code for toggling password visibility
+        
+                    const confirmPasswordInput = document.getElementById('id_confirm_password');
+                    const passwordInput = document.getElementById('id_password');
+                    const passwordMismatchError = document.getElementById('password-mismatch-error');
+        
+                    confirmPasswordInput.addEventListener('input', function() {
+                        if (passwordInput.value !== confirmPasswordInput.value) {
+                            passwordMismatchError.style.display = 'block';
+                        } else {
+                            passwordMismatchError.style.display = 'none';
+                        }
+                    });
+                });
+            </script>
+
+            <script>
+                // JavaScript code to toggle password visibility
+                document.addEventListener("DOMContentLoaded", function() {
+                    const passwordInput = document.getElementById('id_password');
+                    const passwordDisplay = document.getElementById('password_display');
+                    const togglePasswordButton = document.querySelector('.toggle-password');
+            
+                    togglePasswordButton.addEventListener('click', function() {
+                        if (passwordInput.type === 'password') {
+                            passwordInput.style.display = 'none';
+                            passwordDisplay.style.display = 'block';
+                            passwordDisplay.value = passwordInput.value;
+                            passwordInput.type = 'text'; // Show the text
+                        } else {
+                            passwordInput.style.display = 'block';
+                            passwordDisplay.style.display = 'none';
+                            passwordInput.type = 'password'; // Show asterisks
+                        }
+                    });
+            
+                    const confirmPasswordInput = document.getElementById('id_confirm_password');
+                    const confirmPasswordDisplay = document.getElementById('confirm_password_display');
+                    const toggleConfirmPasswordButton = document.querySelector('.toggle-confirm-password');
+            
+                    toggleConfirmPasswordButton.addEventListener('click', function() {
+                        if (confirmPasswordInput.type === 'password') {
+                            confirmPasswordInput.style.display = 'none';
+                            confirmPasswordDisplay.style.display = 'block';
+                            confirmPasswordDisplay.value = confirmPasswordInput.value;
+                            confirmPasswordInput.type = 'text'; // Show the text
+                        } else {
+                            confirmPasswordInput.style.display = 'block';
+                            confirmPasswordDisplay.style.display = 'none';
+                            confirmPasswordInput.type = 'password'; // Show asterisks
+                        }
+                    });
+                });
+            </script>
+            
+            <!-- end of coding in password -->
+
+            <!-- FORM FOR COMPLETE HOME ADDRESS -->
+
+            <div class="ui segment">
+                <div class="personal-info-box"> <!-- Enclose in a styled box -->
+                    <h3 class="ui header">Complete Home Address</h3>
+                </div>
+                
+                <div class="field-container">
+                    <!-- Region field -->
+                    <div class="field text-left">
+                        <div style="margin-bottom: 10px;">
+                            <label for="{{ form.region.id_for_label }}">Region:</label><span class="required-label">*</span>
+                        </div>
+                        <select name="{{ form.region.name }}" id="{{ form.region.id_for_label }}" class="custom-input" onchange="updateProvinces()">
+<!--                            <option value="" selected>Select Region</option>-->
+<!--                            {% for region, region_label in form.region.field.choices %}-->
+<!--                                <option value="{{ region }}">{{ region_label }}</option>-->
+<!--                            {% endfor %}-->
+                        </select>
+                        <div class="error-message" id="region-error" style="display: none; color: red; margin-bottom: 10px;">Required region.</div>
+                    </div>
+
+                    <!-- script for Region -->
+                    <script>
+                        function validateRegion(select) {
+                    const selectedRegion = select.value;
+                    const errorElement = document.getElementById("region-error");
+
+                    if (selectedRegion === "") {
+                        errorElement.style.display = "block";
+                    } else {
+                    errorElement.style.display = "none";
+                    }
+                    }
+                    </script> <!-- end of coding validations in Region -->
+                
+                    <!-- Another Field to the right of Region -->
+                    <div class="field text-left">
+                        <div style="margin-bottom: 10px;">
+                            <label for="{{ form.province.id_for_label }}">Province:</label>
+                        </div>
+                        <select name="{{ form.province.name }}" id="{{ form.province.id_for_label }}" class="custom-input" onchange="updateMunicipalities()">
+<!--                            <option value="" selected>Select Province</option>-->
+<!--                            {% for province, province_label in form.province.field.choices %}-->
+<!--                                <option value="{{ province }}">{{ province_label }}</option>-->
+<!--                            {% endfor %}-->
+                        </select>
+                    </div>
+                </div>
+                <!-- End of field-container -->
+
+                <!-- Script for Province Validations -->
+                    <script>
+                        function validateProvince(select) {
+                    const selectedProvince = select.value;
+                    const errorElement = document.getElementById("province-error");
+
+                    if (selectedProvince === "") {
+                        errorElement.style.display = "block";
+                    } else {
+                        errorElement.style.display = "none";
+                    }
+                    }
+                    </script> <!-- end of script validations -->
+
+                <div class="field-container">
+                    <!-- City field -->
+                    <div class="field text-left">
+                        <div style="margin-bottom: 10px;">
+                            <label for="{{ form.city.id_for_label }}">Municipality:</label>
+                        </div>
+                        <select name="{{ form.city.name }}" id="{{ form.city.id_for_label }}" class="custom-input" onchange="updateBarangays()">
+<!--                            <option value="" selected>Select Municipality</option>-->
+<!--                            {% for city, city_label in form.city.field.choices %}-->
+<!--                                <option value="{{ city }}">{{ city_label }}</option>-->
+<!--                            {% endfor %}-->
+                        </select>
+                    </div>
+
+                    <!-- Script for City Validations -->
+                    <script>
+                        function validateCity(select) {
+                    const selectedCity = select.value;
+                    const errorElement = document.getElementById("city-error");
+
+                    if (selectedCity === "") {
+                        errorElement.style.display = "block";
+                    } else {
+                        errorElement.style.display = "none";
+                    }
+                    }
+                    </script> <!-- end of script validations -->
+
+                    <!-- another fields -->
+                    <div class="field text-left">
+                        <div style="margin-bottom: 10px;">
+                            <label for="{{ form.barangay.id_for_label }}">Barangay:</label><span class="required-label"> *</span>
+                        </div>
+                        <select name="{{ form.barangay.name }}" id="{{ form.barangay.id_for_label }}">
+                            <!--  this will automatically populate                      -->
+                        </select>
+                        <div class="error-message" id="barangay-error" style="display: none;">Required barangay.</div>
+                    </div>
+                </div>
+
+                <!-- end of complete home address information -->
+
+
+                <!-- For program study -->
+                <div class="ui segment">
+                    <div class="personal-info-box"> <!-- Enclose in a styled box -->
+                        <h3 class="ui header">Preffered Program of Study</h3>
+                    </div>
+
+                    <div class="field-container">
+                        <!-- Course Choice 1 field -->
+                        <div class="field text-left">
+                            <div style="margin-bottom: 10px;">
+                                <label for="{{ form.course1.id_for_label }}">Program Choice 1:</label>
+                                <span class="required-label">*</span>
+                            </div>
+                            <select name="{{ form.course1.name }}" id="{{ form.course1.id_for_label }}" class="custom-input">
+                                <option value="" selected>Select Program Choice 1</option>
+                                {% for course, course_label in form.course1.field.choices %}
+                                    <option value="{{ course }}">{{ course_label }}</option>
+                                {% endfor %}
+                            </select>
+                            <div class="error-message" id="course1-error" style="display: none; color: red; margin-bottom: 10px;">Required 1st choice.</div>
+                        </div>
+                    </div>
+                    
+                    <div class="field text-left">
+                        <div style="margin-bottom: 10px;">
+                            <label for="{{ form.course2.id_for_label }}">Program Choice 2:</label>
+                            <span class="required-label">*</span>
+                        </div>
+                        <select name="{{ form.course2.name }}" id="{{ form.course2.id_for_label }}" class="custom-input">
+                            <option value="" selected>Select Program Choice 2</option>
+                            {% for course, course_label in form.course2.field.choices %}
+                                <option value="{{ course }}">{{ course_label }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                    <!-- End of field-container -->
+
+            <!-- end of coding in program choices -->
+
+            <!-- For Additional Information -->
+            <div class="ui segment">
+                <div class="personal-info-box"> <!-- Enclose in a styled box -->
+                    <h3 class="ui header">Additional Information for G11 & G12 Students</h3>
+                </div>
+                
+                
+                <div class="field-container">
+                    <!-- Senior high school track fields for grade 11 -->
+                    <div class="field text-left">
+                        <div style="margin-bottom: 10px;">
+                            <label for="{{ form.senior_high_track.id_for_label }}">Senior Highschool Track:</label>
+                            <span class="required-label"> *</span>
+                        </div>
+                        <select name="{{ form.senior_high_track.name }}" id="{{ form.senior_high_track.id_for_label }}" class="custom-input" required>
+                            <option value="" selected>Select Senior High School Track</option>
+                            {% for track_value, track_label in form.senior_high_track.field.choices %}
+                                <option value="{{ track_value }}">{{ track_label }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                        <!-- Next fields for senior-->
+                    <div class="field text-left">
+                        <div style="margin-bottom: 10px;">
+                            <label for="{{ form.gwa.id_for_label }}">General Weighted Average (GWA) for G11:</label>
+                            <span class="required-label"> *</span>
+                        </div>
+                        <input type="number" name="{{ form.gwa.name }}" id="{{ form.gwa.id_for_label }}" placeholder="Enter your GWA (75% to 95%)" step="0.01" min="75" max="95" required class="custom-input">
+                        <div class="error-message" id="gwa-error" style="display: none;">Required GWA (between 75% and 95%).</div>
+                    </div>
+                
+
+                 <!-- Senior high school track fields for grade 11 -->
+                 <div class="field text-left">
+                    <div style="margin-bottom: 10px;">
+                        <label for="{{ form.senior_high_track_g12.id_for_label }}">Senior Highschool Track G12:</label>
+                        <span class="required-label"> *</span>
+                    </div>
+                    <select name="{{ form.senior_high_track_g12.name }}" id="{{ form.senior_high_track_g12.id_for_label }}" class="custom-input" required>
+                        <option value="" selected>Select Senior High School Track for G12</option>
+                        {% for track_value, track_label in form.senior_high_track_g12.field.choices %}
+                            <option value="{{ track_value }}">{{ track_label }}</option>
+                        {% endfor %}
+                    </select>
+                    <div class="error-message" id="senior-high-track-g12-error" style="display: none;">Required Senior High School Track for G12.</div>
+                </div>
+
+                    <!-- Next fields for senior-->
+                <div class="field text-left">
+                    <div style="margin-bottom: 10px;">
+                        <label for="{{ form.gwa_g12.id_for_label }}">General Weighted Average (GWA) for G12:</label>
+                        <span class="required-label"> *</span>
+                    </div>
+                    <input type="number" name="{{ form.gwa_g12.name }}" id="{{ form.gwa_g12.id_for_label }}" placeholder="Enter your GWA (75% to 95%)" step="0.01" min="75" max="95" required class="custom-input">
+                    <div class="error-message" id="gwa_g12-error" style="display: none;">Required GWA (between 75% and 95%).</div>
+                </div>
+            </div>
+                <!-- end of coding in Additional information -->
+            
+                <!-- For Additional Information -->
+                <div class="ui segment">
+                    <div class="personal-info-box"> <!-- Enclose in a styled box -->
+                        <h3 class="ui header">Senior Highschool Subject's Grades</h3>
+                    </div>
+
+                    <div class="field-container">
+                        <!-- Oral Communication fields -->
+                        <div class="field text-left">
+                            <div style="margin-bottom: 10px;">
+                                <label for="{{ form.oralcom.id_for_label }}">Oral Communication:</label>
+                                <span class="required-label"> *</span>
+                            </div>
+                            <input type="number" name="{{ form.oralcom.name }}" id="{{ form.oralcom.id_for_label }}" placeholder="Enter your GWA (75% to 95%)" step="0.01" min="75" max="95" required class="custom-input">
+                            <div class="error-message" id="oralcom-error" style="display: none;">Required GWA (between 75% and 95%).</div>
+                        </div>
+                        <!-- Next fields for oral-->
+                    <div class="field text-left">
+                        <div style="margin-bottom: 10px;">
+                            <label for="{{ form.genmath.id_for_label }}">General Mathematics:</label>
+                            <span class="required-label"> *</span>
+                        </div>
+                        <input type="number" name="{{ form.genmath.name }}" id="{{ form.genmath.id_for_label }}" placeholder="Enter your GWA (between 75% and 95%)" step="0.01" min="75" max="95" required class="custom-input">
+                        <div class="error-message" id="genmath-error" style="display: none;">Required GWA (between 75% and 95%).</div>
+                    </div>
+                </div>
+
+                <div class="field-container">
+                    <!-- Earth and life science fields -->
+                    <div class="field text-left">
+                        <div style="margin-bottom: 10px;">
+                            <label for="{{ form.earthscie.id_for_label }}">Earth and Life Science:</label>
+                            <span class="required-label"> *</span>
+                        </div>
+                        <input type="number" name="{{ form.earthscie.name }}" id="{{ form.earthscie.id_for_label }}" placeholder="Enter your GWA (75% to 95%)" step="0.01" min="75" max="95" required class="custom-input">
+                        <div class="error-message" id="earthscie-error" style="display: none;">Required GWA (between 75% and 95%).</div>
+                    </div>
+                    <!-- Next fields for earth and life science-->
+                    <div class="field text-left">
+                        <div style="margin-bottom: 10px;">
+                            <label for="{{ form.probstats.id_for_label }}">Probability and Statistics:</label>
+                            <span class="required-label"> *</span>
+                        </div>
+                        <input type="number" name="{{ form.probstats.name }}" id="{{ form.probstats.id_for_label }}" placeholder="Enter your GWA (75% to 95%)" step="0.01" min="75" max="95" required class="custom-input">
+                        <div class="error-message" id="probstats-error" style="display: none;">Required GWA (between 75% and 95%).</div>
+                    </div>
+                </div>
+                <!-- end of coding in Senior highschool grades -->
+
+                <!-- For Educational Background -->
+                <div class="ui segment">
+                    <div class="personal-info-box"> <!-- Enclose in a styled box -->
+                        <h3 class="ui header">Educational Background</h3>
+                    </div>
+
+                    <h2 class="ui header">Grade School</h2>
+
+                    <!-- Grade School container -->
+                    <div class="field-container">
+                        <!-- Grade school fields -->
+                        <div class="field text-left">
+                            <div style="margin-bottom: 10px;">
+                                <label for="{{ form.grade_school_name.id_for_label }}">Name of School:</label><span class="required-label">*</span>
+                            </div>
+                            <input type="text" name="{{ form.grade_school_name.name }}" id="{{ form.grade_school_name.id_for_label }}" placeholder="Enter Grade School Name" required oninput="validateSchoolName(this)">
+                            <div class="error-message" id="school-name-error" style="display: none;">Please enter a valid school name.</div>
+                        </div>
+                        
+                        <!-- script for Validations -->
+                        <script>
+                            function validateSchoolName(input) {
+                                const schoolName = input.value;
+                                const validSchoolName = /^[A-Za-z\s,&.'-]+$/; // Adjust this pattern as needed
+                        
+                                const errorElement = document.getElementById('school-name-error');
+                        
+                                if (!validSchoolName.test(schoolName)) {
+                                    errorElement.style.display = 'block';
+                                } else {
+                                    errorElement.style.display = 'none';
+                                }
+                            }
+                        </script> <!-- end of validations -->
+                        
+                        <div class="field text-left">
+                            <div style="margin-bottom: 10px;">
+                                <label for="{{ form.grade_school_address.id_for_label }}">Address of School:</label><span class="required-label">*</span>
+                            </div>
+                            <input type="text" name="{{ form.grade_school_address.name }}" id="{{ form.grade_school_address.id_for_label }}" placeholder="Enter Grade School Address" required oninput="validateAddress(this)">
+                            <div class="error-message" id="address-error" style="display: none;">Please enter a valid school address.</div>
+                        </div>
+                        
+                        <!-- Script for Validations in School Address -->
+                        <script>
+                            function validateAddress(input) {
+                        const address = input.value;
+                        const validAddress = /^[A-Za-z\s,'-.]+$/; // Adjust this pattern as needed
+
+                        const errorElement = document.getElementById('address-error');
+
+                        if (!validAddress.test(address)) {
+                        errorElement.style.display = 'block';
+                        } else {
+                        errorElement.style.display = 'none';
+                        }
+                        }
+                        </script> <!-- end of Script -->
+
+                        <div class="field text-left">
+                            <div style="margin-bottom: 10px;">
+                                <label class="fixed-width-label" for="{{ form.grade_school_year_graduated.id_for_label }}">Year Graduated:</label><span class="required-label">*</span>
+                            </div>
+                            <input type="number" name="{{ form.grade_school_year_graduated.name }}" id="{{ form.grade_school_year_graduated.id_for_label }}" placeholder="Enter year graduated" required class="custom-input" oninput="validateGraduationYear(this)">
+                            <div class="error-message" id="graduation-year-error" style="display: none;">Please enter a valid graduation year.</div>
+                        </div> 
+                        
+                        <!-- Script for Validations Year -->
+                        <script>
+                        function validateGraduationYear(input) {
+                        const graduationYear = input.value;
+                        const errorElement = document.getElementById("graduation-year-error");
+                        const birthYear = 2000; // Birth year
+
+                        if (graduationYear < birthYear + 6 || graduationYear > birthYear + 12) {
+                            errorElement.style.display = "block";
+                        } else {
+                        errorElement.style.display = "none";
+                        }
+                        }
+                        </script> <!-- end of Script Validations -->
+                                                
+                        <div class="field text-left">
+                            <div style="margin-bottom: 10px;">
+                                <label class="fixed-width-label" for="{{ form.grade_school_awards_and_recognition.id_for_label }}">Awards/Recognition:</label>
+                                <div style="font-size: medium; margin-top: 7px;">(If no Awards/Recognition, please input N/A)</div>
+                            </div>
+                            <input type="text" name="{{ form.grade_school_awards_and_recognition.name }}" id="{{ form.grade_school_awards_and_recognition.id_for_label }}" placeholder="Enter Awards/Recognition " required>
+                        </div>
+                    </div>
+
+                    <h2 class="ui header">Junior High School</h2>
+
+                    <!-- Junior highschool container -->
+                    <div class="field-container">
+                        <!-- Junior highschool fields -->
+                        <div class="field text-left">
+                            <div style="margin-bottom: 10px;">
+                                <label for="{{ form.junior_high_school_name.id_for_label }}">Name of School:</label><span class="required-label">*</span>
+                            </div>
+                            <input type="text" name="{{ form.junior_high_school_name.name }}" id="{{ form.junior_high_school_name.id_for_label }}" placeholder="Enter Junior Highschool Name" required oninput="validateJuniorSchoolName(this)">
+                            <div class="error-message" id="junior-school-name-error" style="display: none;">Please enter a valid school name.</div>
+                        </div>
+                        
+                        <!-- script for Validations -->
+                        <script>
+                            function validateJuniorSchoolName(input) {
+                                const schoolName = input.value;
+                                const validSchoolName = /^[A-Za-z\s,&.'-]+$/; // Modify the pattern as needed
+                        
+                                const errorElement = document.getElementById('junior-school-name-error');
+                        
+                                if (!validSchoolName.test(schoolName)) {
+                                    errorElement.style.display = 'block';
+                                } else {
+                                    errorElement.style.display = 'none';
+                                }
+                            }
+                        </script> <!-- end of validations -->
+                        
+                        <div class="field text-left">
+                            <div style="margin-bottom: 10px;">
+                                <label for="{{ form.junior_high_school_address.id_for_label }}">Address of School:</label><span class=""required-label">*</span>
+                            </div>
+                            <input type="text" name="{{ form.junior_high_school_address.name }}" id="{{ form.junior_high_school_address.id_for_label }}" placeholder="Enter Junior School Address" required oninput="validateJuniorAddress(this)">
+                            <div class="error-message" id="junior-address-error" style="display: none;">Please enter a valid school address.</div>
+                        </div>
+
+                        <!-- Script for Validations -->
+                        <script>
+                           function validateJuniorAddress(input) {
+                            const junior_address = input.value;
+                            const validateJuniorAddress = /^[A-Za-z\s,'-.]+$/;
+
+                            const errorElement = document.getElementById('junior-address-error');
+
+                            if (!validateJuniorAddress.test(junior_address)) {
+                                errorElement.style.display = 'block';
+                            } else {
+                                errorElement.style.display = 'none';
+                            }
+                        }
+                        </script> <!-- end of validations -->
+
+                        <div class="field text-left">
+                            <div style="margin-bottom: 10px;">
+                            <label for="{{ form.junior_high_school_year_graduated.id_for_label }}">Year Graduated:</label>
+                        </div>
+                            <input type="number" name="{{ form.junior_high_school_year_graduated.name }}" id="{{ form.junior_high_school_year_graduated.id_for_label }}" placeholder="Enter year graduated" required class="custom-input" oninput="validateJuniorGraduationYear(this)">
+                            <div class="error-message" id="junior-graduation-year-error" style="display: none;">Please enter a valid graduation year.</div>
+                        </div>
+
+                        <!-- Script for Validations -->
+                        <script>
+                             function validateJuniorGraduationYear(input) {
+                        const JuniorgraduationYear = input.value;
+                        const errorElement = document.getElementById("junior-graduation-year-error");
+                        const JuniorbirthYear = 2000; // Assuming the birth year as 2000
+
+                        if (JuniorgraduationYear < JuniorbirthYear + 14 || JuniorgraduationYear > JuniorbirthYear + 15) {
+                            errorElement.style.display = "block";
+                        } else {
+                            errorElement.style.display = "none";
+                        }
+                        }
+                        </script> <!-- end of Validations -->
+                        
+                        <div class="field text-left">
+                            <div style="margin-bottom: 10px;">
+                                <label for="{{ form.junior_high_school_awards_and_recognition.id_for_label }}">Awards/Recognition:</label>
+                                <div style="font-size: medium; margin-top: 7px;">(If no Awards/Recognition, please input N/A)</div>
+                            </div>
+                            <input type="text" name="{{ form.junior_high_school_awards_and_recognition.name }}" id="{{ form.junior_high_school_awards_and_recognition.id_for_label }}" placeholder="Enter Awards/Recognition">
+                        </div>
+                    </div>
+
+                    <h2 class="ui header">Senior High School</h2>
+
+                    <!-- Senior highschool container -->
+                    <div class="field-container">
+                        <!-- Senior highschool fields -->
+                        <div class="field text-left">
+                            <div style="margin-bottom: 10px;">
+                                <label for="{{ form.senior_high_school_name.id_for_label }}">Name of School:</label>
+                            </div>
+                            <input type="text" name="{{ form.senior_high_school_name.name }}" id="{{ form.senior_high_school_name.id_for_label }}" placeholder="Enter Senior Highschool Name" required>
+                        </div>
+                        
+                        <div class="field text-left">
+                            <div style="margin-bottom: 10px;">
+                                <label for="{{ form.senior_high_school_address.id_for_label }}">Address of School:</label>
+                            </div>
+                            <input type="text" name="{{ form.senior_high_school_address.name }}" id="{{ form.senior_high_school_address.id_for_label }}" placeholder="Enter Address" required>
+                        </div>
+                        
+                        <div class="field text-left">
+                            <div style="margin-bottom: 10px;">
+                                <label for="{{ form.senior_high_school_year_graduated.id_for_label }}">Year Graduated:</label>
+                            </div>
+                            <input type="number" name="{{ form.senior_high_school_year_graduated.name }}" id="{{ form.senior_high_school_year_graduated.id_for_label }}" placeholder="Enter year graduated" required class="custom-input">
+                        </div>
+                        
+                        <div class="field text-left">
+                            <div style="margin-bottom: 10px;">
+                                <label for="{{ form.senior_high_school_awards_and_recognition.id_for_label }}">Awards/Recognition:</label>
+                                <div style="font-size: medium; margin-top: 7px;">(If no Awards/Recognition, please input N/A)</div>
+                            </div>
+                            <input type="text" name="{{ form.senior_high_school_awards_and_recognition.name }}" id="{{ form.senior_high_school_awards_and_recognition.id_for_label }}" placeholder="Enter Awards/Recognition" required>
+                        </div>
+                    </div>
+
+                    <h2 class="ui header">Vocational School</h2>
+
+                    <!-- Vocational school container -->
+                    <div class="field-container">
+                        <!-- Vocational school fields -->
+                        <div class="field text-left">
+                            <div style="margin-bottom: 10px;">
+                                <label for="{{ form.vocational_school_name.id_for_label }}">Name of School:</label>
+                            </div>
+                            <input type="text" name="{{ form.vocational_school_name.name }}" id="{{ form.vocational_school_name.id_for_label }}" placeholder="Enter Vocational Highschool Name" required>
+                        </div>
+                        
+                        <div class="field text-left">
+                            <div style="margin-bottom: 10px;">
+                                <label for="{{ form.vocational_school_address.id_for_label }}">Address of School:</label>
+                            </div>
+                            <input type="text" name="{{ form.vocational_school_address.name }}" id="{{ form.vocational_school_address.id_for_label }}" placeholder="Enter Address" required>
+                        </div>
+                        
+                        <div class="field text-left">
+                            <div style="margin-bottom: 10px;">
+                                <label for="{{ form.vocational_school_year_graduated.id_for_label }}">Year Graduated:</label>
+                            </div>
+                            <input type="number" name="{{ form.vocational_school_year_graduated.name }}" id="{{ form.vocational_school_year_graduated.id_for_label }}" placeholder="Enter year graduated" required class="custom-input">
+                        </div>
+                        
+                        <div class="field text-left">
+                            <div style="margin-bottom: 10px;">
+                                <label for="{{ form.vocational_school_awards_and_recognition.id_for_label }}">Awards/Recognition:</label>
+                                <div style="font-size: medium; margin-top: 7px;">(If no Awards/Recognition, please input N/A)</div>
+                            </div>
+                            <input type="text" name="{{ form.vocational_school_awards_and_recognition.name }}" id="{{ form.vocational_school_awards_and_recognition.id_for_label }}" placeholder="Enter Awards/Recognition" required>
+                        </div>
+                    </div>
+
+
+
+                    <!-- For Emergency Details -->
+                <div class="ui segment">
+                    <div class="personal-info-box"> <!-- Enclose in a styled box -->
+                        <h3 class="ui header">In Case of Emergency, Parent Contact Details</h3>
+                    </div>
+
+                    <h2 class="ui header">Father's Information</h2>
+
+                    <div class="field-container">
+                        <!-- Father full name fields -->
+                        <div class="field text-left">
+                            <div style="margin-bottom: 10px;">
+                                <label for="{{ form.father_full_name.id_for_label }}">Father's Name:</label><span class="required-label"> *</span>
+                            </div>
+                            <input type="text" name="{{ form.father_full_name.name }}" id="{{ form.father_full_name.id_for_label }}" placeholder="Enter your father's name" required>
+                            <div class="error-message" id="father-full-name-error" style="display: none;">Required father's name.</div>
+                        </div>
+
+                        <div class="field text-left">
+                            <div style="margin-bottom: 10px;">
+                                <label for="{{ form.father_contact_no.id_for_label }}">Father's Contact Number:</label><span class="required-label">*</span>
+                            </div>
+                            <input type="text" name="{{ form.father_contact_no.name }}" id="{{ form.father_contact_no.id_for_label }}" placeholder="Enter your father's contact number" class="custom-input" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11);" required>
+                            <div class="error-message" id="father-contact-number-error" style="display: none; color: red; margin-bottom: 10px;">Invalid Contact Number (11 digits required).</div>
+                        </div>
+                    </div>
+
+                    <div class="field-container">
+                        <!-- civil status fields -->
+                        <div class="field text-left">
+                            <div style="margin-bottom: 10px;">
+                                <label for="{{ form.occupation.id_for_label }}">Status of Occupation:</label>
+                            </div>
+                            <select name="{{ form.occupation.name }}" id="{{ form.occupation.id_for_label }}" class="custom-input">
+                                <option value="">Select Occupation</option>
+                                <option value="Self-employed">Self-Employed</option>
+                                <option value="Unemployed">Unemployed</option>
+                                <option value="Student">Student</option>
+                                <option value="Retired">Retired</option>
+                                <option value="Homemaker">Homemaker</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <div class="error-message" id="occupation-error" style="display: none;">Invalid Occupation.</div>
+                        </div>
+
+                        <div class="field text-left">
+                            <div style="margin-bottom: 10px;">
+                                <label for="{{ form.father_home_add.id_for_label }}">Father's Home Address:</label>
+                            </div>
+                            <input type="text" name="{{ form.father_home_add.name }}" id="{{ form.father_home_add.id_for_label }}" placeholder="Enter your father's home address">
+                        </div>
+                    </div>
+
+                    <div class="field-container">
+                        <!-- Father Email Address fields -->
+                        <div class="field text-left">
+                            <div style="margin-bottom: 10px;">
+                                <label for="{{ form.father_email_add.id_for_label }}">Father's Email Address:</label><span class="required-label"> *</span>
+                                <div style="font-size: medium; margin-top: 7px;">(If the father's doesn't have an email address, use the student's personal email address)</div>
+                            </div>
+                            <input type="text" name="{{ form.father_email_add.name }}" id="{{ form.father_email_add.id_for_label }}" placeholder="example123@mail.com" required>
+                            <div class="error-message" id="email-error" style="display: none;">Required email address.</div>
+                        </div>
+                        
+                        <!-- for income of the father -->
+                        <div class="field text-left">
+                            <div style="margin-bottom: 10px;">
+                                <label for="{{ form.income.id_for_label }}">Income (Below 3000):</label>
+                            </div>
+                            <select name="{{ form.income.name }}" id="{{ form.income.id_for_label }}" class="custom-input">
+                                <option value="">Select Income</option>
+                                <option value="Below 3000">Below 3000</option>
+                                <option value="3000 - 5000">3000 - 5000</option>
+                                <option value="5000 - 10000">5000 - 10000</option>
+                                <option value="10000 - 20000">10000 - 20000</option>
+                                <option value="20000 - 30000">20000 - 30000</option>
+                                <option value="30000 - 40000">30000 - 40000</option>
+                                <option value="40000 - 50000">40000 - 50000</option>
+                                <option value="Above 50000">Above 50000</option>
+                            </select>
+                            <div class="error-message" id="income-error" style="display: none;">Invalid Income.</div>
+                        </div>
+                    </div>
+
+                    <!-- end of coding in father emergency details-->
+
+                    <h2 class="ui header">Mother's Information</h2>
+
+                    <div class="field-container">
+                        <!-- Father full name fields -->
+                        <div class="field text-left">
+                            <div style="margin-bottom: 10px;">
+                                <label for="{{ form.mother_full_name.id_for_label }}">Mother's Name:</label><span class="required-label"> *</span>
+                            </div>
+                            <input type="text" name="{{ form.mother_full_name.name }}" id="{{ form.mother_full_name.id_for_label }}" placeholder="Enter your mother's name" required>
+                            <div class="error-message" id="mother-full-name-error" style="display: none;">Required Mother's name.</div>
+                        </div>
+                        <div class="field text-left">
+                            <div style="margin-bottom: 10px;">
+                                <label for="{{ form.mother_contact_no.id_for_label }}">Mother's Contact Number:</label><span class="required-label">*</span>
+                            </div>
+                            <input type="text" name="{{ form.mother_contact_no.name }}" id="{{ form.mother_contact_no.id_for_label }}" placeholder="Enter your mother's contact number" class="custom-input" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11);" required>
+                            <div class="error-message" id="mother-contact-number-error" style="display: none; color: red; margin-bottom: 10px;">Invalid Contact Number (11 digits required).</div>
+                        </div>
+                    </div>
+
+                    <div class="field-container">
+                        <!-- civil status fields -->
+                        <div class="field text-left">
+                            <div style="margin-bottom: 10px;">
+                                <label for="{{ form.moth_occupation.id_for_label }}">Status of Occupation:</label>
+                            </div>
+                            <select name="{{ form.moth_occupation.name }}" id="{{ form.moth_occupation.id_for_label }}" class="custom-input">
+                                <option value="">Select Occupation</option>
+                                <option value="Self-employed">Self-Employed</option>
+                                <option value="Unemployed">Unemployed</option>
+                                <option value="Student">Student</option>
+                                <option value="Retired">Retired</option>
+                                <option value="Homemaker">Homemaker</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <div class="error-message" id="moth_occupation-error" style="display: none;">Invalid Occupation.</div>
+                        </div>
+
+                        <div class="field text-left">
+                            <div style="margin-bottom: 10px;">
+                                <label for="{{ form.mother_home_add.id_for_label }}">Mother's Home Address:</label>
+                            </div>
+                            <input type="text" name="{{ form.mother_home_add.name }}" id="{{ form.mother_home_add.id_for_label }}" placeholder="Enter your mother's home address">
+                        </div>
+                    </div>
+
+                        <div class="field-container">
+                            <!-- Mother Email Address fields -->
+                            <div class="field text-left">
+                                <div style="margin-bottom: 10px;">
+                                    <label for="{{ form.mother_email_add.id_for_label }}">Mother's Email Address:</label><span class="required-label"> *</span>
+                                    <div style="font-size: medium; margin-top: 7px;">(If the Mother's doesn't have an email address, use the student's personal email address)</div>
+                                </div>
+                                <input type="text" name="{{ form.mother_email_add.name }}" id="{{ form.mother_email_add.id_for_label }}" placeholder="example123@mail.com" required>
+                                <div class="error-message" id="email-error" style="display: none;">Required email address.</div>
+                            </div>
+                            <!-- for income of the father -->
+                        <div class="field text-left">
+                            <div style="margin-bottom: 10px;">
+                                <label for="{{ form.moth_income.id_for_label }}">Income (Below 3000):</label>
+                            </div>
+                            <select name="{{ form.moth_income.name }}" id="{{ form.moth_income.id_for_label }}" class="custom-input">
+                                <option value="">Select Income</option>
+                                <option value="Below 3000">Below 3000</option>
+                                <option value="3000 - 5000">3000 - 5000</option>
+                                <option value="5000 - 10000">5000 - 10000</option>
+                                <option value="10000 - 20000">10000 - 20000</option>
+                                <option value="20000 - 30000">20000 - 30000</option>
+                                <option value="30000 - 40000">30000 - 40000</option>
+                                <option value="40000 - 50000">40000 - 50000</option>
+                                <option value="Above 50000">Above 50000</option>
+                            </select>
+                            <div class="error-message" id="moth_income-error" style="display: none;">Invalid Income.</div>
+                        </div>
+                    </div>
+
+                    <!-- for insert photo (inprogress )-->
+                    <div class="ui segment">
+                        <div class="personal-info-box" style="color: white;">
+                            <h3 class="ui header">Insert Profile Picture</h3>
+                            <label for="file-upload" class="file-upload-button">Choose a picture file</label><br>
+                            <input type="file" id="file-upload" accept=".jpg, .jpeg" name="photo" style="display: none;">
+                            <span id="file-name" style="color: white;"></span>
+                        </div>
+                    </div>
+                    <!-- end of coding -->
+
+                    <!-- BUTTON FOR SUBMIT REGISTRATION -->
+                    <div style="margin-top: 20px;"></div>
+                    <button class="ui button primary" type="submit" id="id_submit_button">
+                        <img src="{% static 'images/icon/register.png' %}" style="height: 2.5rem; margin-right: 10px; vertical-align: middle;">
+                        <strong>Submit Registration</strong>
+                    </button>
+                    <div class="error-message" id="submit-error" style="display: none; color: red; margin-bottom: 10px;">Required fields.</div>
+                    <!-- END OF CODING -->
+
+                    <!-- validations for all fields -->
+                        <!-- First name validations -->
+                        <script>
+                            function validateForm(event) {
+                                var firstName = document.getElementById("{{ form.first_name.id_for_label }}").value;
+                                var firstNameError = document.getElementById("first-name-error");
+                                var submitError = document.getElementById("submit-error");
+                                
+                                if (firstName === "") {
+                                    firstNameError.style.display = "block";
+                                    submitError.style.display = "none";  // Hide the submit error message
+                                    event.preventDefault();  // Prevent form submission
+                                } else {
+                                    firstNameError.style.display = "none";  // Hide the first name error message
+                                }
+                            }
+                        </script> <!-- end of first name validations-->
+
+                    
+                    <!-- end of coding -->
+                    
+                    <!-- script for file upload -->
+                    <script>
+                        const fileUpload = document.getElementById('file-upload');
+                        const fileName = document.getElementById('file-name');
+                    
+                        fileUpload.addEventListener('change', function() {
+                            if (fileUpload.files.length > 0) {
+                                fileName.textContent = 'Selected file: ' + fileUpload.files[0].name;
+                            } else {
+                                fileName.textContent = '';
+                            }
+                        });
+                    </script>
+                    
+                    
+            <!-- validation for required fields per textbox -->
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    const studentIdInput = document.getElementById('{{ form.student_id.id_for_label }}');
+                    const fullNameInput = document.getElementById('{{ form.name.id_for_label }}');
+
+                    const firstNameInput = document.getElementById('{{ form.first_name.id_for_label }}');
+
+                    const emailInput = document.getElementById('{{ form.email.id_for_label }}');
+                    const passwordInput = document.getElementById('id_password');
+                    const confirmPasswordInput = document.getElementById('id_confirm_password');
+                    const submitButton = document.getElementById('id_submit_button');
+                    const studentIdError = document.getElementById('student-id-error');
+                    const fullNameError = document.getElementById('full-name-error');
+
+                    const firstNameError = document.getElementById('first-name-error');
+
+                    const emailError = document.getElementById('email-error');
+                    const passwordError = document.getElementById('password-error');
+                    const confirmPasswordError = document.getElementById('confirm-password-error');
+                    const submitError = document.getElementById('submit-error');
+            
+                    submitButton.addEventListener('click', function (e) {
+
+                        if (studentIdInput.value.trim() === '') {
+                            e.preventDefault(); // Prevent form submission
+                            studentIdError.style.display = 'block';
+                        } else {
+                            studentIdError.style.display = 'none';
+                        }
+                        
+                        if (fullNameInput.value.trim() === '') {
+                            e.preventDefault(); // Prevent form submission
+                            fullNameError.style.display = 'block';
+                        } else {
+                            fullNameError.style.display = 'none'; 
+                        }
+
+                        if(firstNameInput.value.trim() === '') {
+                            e.preventDefault(); // Prevent form submission
+                            firstNameError.style.display = 'block';
+                        } else {
+                            firstNameError.style.display = 'none';
+                        }
+
+                        if (emailInput.value.trim() === '') {
+                            e.preventDefault(); // Prevent form submission
+                            emailError.style.display = 'block';
+                        } else {
+                            emailError.style.display = 'none';
+                        }
+
+                        if (passwordInput.value.trim() === '') {
+                            e.preventDefault(); // Prevent form submission
+                            passwordError.style.display = 'block';
+                        } else {
+                            passwordError.style.display = 'none';
+                        }
+
+                        if (confirmPasswordInput.value.trim() === '') {
+                            e.preventDefault(); // Prevent form submission
+                            confirmPasswordError.style.display = 'block';
+                        } else {
+                            confirmPasswordError.style.display = 'none';
+                        }
+                    });
+                });
+            </script>
+
+             <!-- time for registration sync to admin (where the student pass the registration fields)-->
+             <script>
+                // Get the input element
+                var timeReceivedInput = document.getElementById("{{ form.time_received.id_for_label }}");
+            
+                // Function to format a date as "MM-DD-YYYY | hh:mm:ss AM/PM"
+                function formatDate(date) {
+                    var year = date.getFullYear();
+                    var month = String(date.getMonth() + 1).padStart(2, '0');
+                    var day = String(date.getDate()).padStart(2, '0');
+                    var hours = date.getHours();
+                    var ampm = hours >= 12 ? 'PM' : 'AM';
+                    hours = hours % 12 || 12; // Convert to 12-hour format
+                    var minutes = String(date.getMinutes()).padStart(2, '0');
+                    var seconds = String(date.getSeconds()).padStart(2, '0');
+                    return month + "-" + day + "-" + year + " | " + hours + ":" + minutes + ":" + seconds + " " + ampm;
+                }
+            
+                // Function to update the input value with the current date and time
+                function updateCurrentTime() {
+                    var currentDateTime = new Date();
+                    timeReceivedInput.value = formatDate(currentDateTime);
+                }
+            
+                // Call the function to set the initial value
+                updateCurrentTime();
+            
+                // Update the value every second (you can adjust the interval as needed)
+                setInterval(updateCurrentTime, 1000);
+            </script>
+
+             <!-- end of script -->
+
+             <div style="margin-top: 10px;"></div>
+
+             
+            
+        </form>
+    </div>
+        
+        <div id="success-message" style="display: none;">
+            <div class="centered-message">
+                <br>
+                Registration Successfully ! 
+                <p >Proceed to <a href="{% url 'std_login' %}" style="color: rgb(255, 255, 255);">Login Page</a></p> 
+            </div>
+        </div>
+    
+        <script>
+            function hideFormFields() {
+                $('.field').css('display', 'none');
+                $('#id_password').prop('disabled', true); // Disable the password field
+                $('#id_confirm_password').prop('disabled', true); // Disable the confirm password field
+            }
+    
+            function clearForm() {
+                hideFormFields();
+                // Clear form fields
+                $('#id_password').val('');
+                $('#id_confirm_password').val('');
+            }
+    
+            function redirectToPreviousPage() {
+                // Redirect to the previous page
+                window.history.back();
+            }
+    
+            // Call the hideFormFields and clearForm functions when the submit button is clicked
+            document.getElementById("id_submit_button").addEventListener("click", function() {
+                hideFormFields();
+                clearForm();
+            });
+        </script>
+
+        <!-- validation for all fields -->
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const passwordInput = document.getElementById('id_password');
+                const confirmPasswordInput = document.getElementById('id_confirm_password');
+                const form = document.querySelector('.ui.form');
+                const passwordMismatchError = document.getElementById('password-mismatch-error');
+                const requiredFields = document.querySelectorAll('.required-field');
+        
+                const togglePasswordButton = document.querySelector('.toggle-password');
+                const toggleConfirmPasswordButton = document.querySelector('.toggle-confirm-password');
+        
+                togglePasswordButton.addEventListener('click', function() {
+                    // Your existing code to toggle password visibility
+                });
+        
+                toggleConfirmPasswordButton.addEventListener('click', function() {
+                    // Your existing code to toggle confirm password visibility
+                });
+        
+                form.addEventListener('submit', function(event) {
+                    let isValid = true;
+        
+                    requiredFields.forEach(field => {
+                        if (field.value.trim() === '') {
+                            field.style.borderColor = 'red'; // Highlight empty fields
+                            isValid = false;
+                        } else {
+                            field.style.borderColor = ''; // Clear the highlight
+                        }
+                    });
+        
+                    if (!isValid) {
+                        event.preventDefault(); // Prevent form submission
+                        passwordMismatchError.style.display = 'block';
+                    } else {
+                        passwordMismatchError.style.display = 'none';
+                    }
+                });
+            });
+        </script>
+
+        
+
+        <!-- wag na pakelaman tong code na to for verification success message-->
+        {% if success_message %}
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                document.getElementById("success-message").style.display = "block";
+            });
+        </script>
+        {% endif %}
+    </div>
+
+    <!--  for dynamic address selection  -->
+    <script>
+        // Get the select elements
+        var regionSelect = document.getElementById("{{ form.region.id_for_label }}");
+        var provinceSelect = document.getElementById("{{ form.province.id_for_label }}");
+        var municipalitySelect = document.getElementById("{{ form.city.id_for_label }}");
+        var barangaySelect = document.getElementById("{{ form.barangay.id_for_label }}");
+
+        // Function to update provinces based on the selected region
+        function updateProvinces() {
+          // Clear existing options
+          provinceSelect.innerHTML = "";
+          municipalitySelect.innerHTML = "";
+          barangaySelect.innerHTML = "";
+
+          // Get the selected region code
+          var selectedRegionCode = regionSelect.value;
+
+          // Check if a region is selected
+          if (selectedRegionCode) {
+            // Find the selected region in the JSON data
+            var selectedRegionData = jsonData[selectedRegionCode];
+
+            // Populate the province dropdown
+            Object.keys(selectedRegionData.province_list).forEach(function(provinceName) {
+              var option = document.createElement('option');
+              option.value = provinceName;
+              option.text = provinceName;
+              provinceSelect.add(option);
+            });
+          }
+        }
+
+        // Similarly, you can create functions to update municipalities and barangays
+        // based on the selected province and municipality.
+
+        // Function to update municipalities based on the selected province
+        function updateMunicipalities() {
+          // Clear existing options
+          municipalitySelect.innerHTML = "";
+          barangaySelect.innerHTML = "";
+
+          // Get the selected province name
+          var selectedProvince = provinceSelect.value;
+
+          // Find the selected province in the JSON data
+          var selectedProvinceData = jsonData[regionSelect.value].province_list[selectedProvince];
+
+          // Populate the municipality dropdown
+          Object.keys(selectedProvinceData.municipality_list).forEach(function(municipalityName) {
+            var option = document.createElement('option');
+            option.value = municipalityName;
+            option.text = municipalityName;
+            municipalitySelect.add(option);
+          });
+        }
+
+        // Function to update barangays based on the selected municipality
+        function updateBarangays() {
+          // Clear existing options
+          barangaySelect.innerHTML = "";
+
+          // Get the selected municipality name
+          var selectedMunicipality = municipalitySelect.value;
+
+          // Find the selected municipality in the JSON data
+          var selectedMunicipalityData = jsonData[regionSelect.value]
+            .province_list[provinceSelect.value].municipality_list[selectedMunicipality];
+
+          // Populate the barangay dropdown
+          selectedMunicipalityData.barangay_list.forEach(function(barangayName) {
+            var option = document.createElement('option');
+            option.value = barangayName;
+            option.text = barangayName;
+            barangaySelect.add(option);
+          });
+        }
+
+        // Load JSON data from the file
+        var jsonUrl = "{% static 'json/philippine_provinces_cities_municipalities_and_barangays_2019v2.json' %}";
+<!--        fetch('philippine_provinces_cities_municipalities_and_barangays_2019v2.json')-->
+        fetch(jsonUrl)
+          .then(response => response.json())
+          .then(data => {
+            // Save the loaded JSON data to a variable for later use
+            window.jsonData = data;
+
+            // Populate the region dropdown
+            Object.keys(data).forEach(function(regionCode) {
+              var region = data[regionCode];
+              var option = document.createElement('option');
+              option.value = regionCode;
+              option.text = region.region_name;
+              regionSelect.add(option);
+            });
+          })
+          .catch(error => console.error('Error loading JSON:', error));
+
+      </script>
+    </body>
+    </html>
+    {% endblock %}

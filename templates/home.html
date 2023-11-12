@@ -1,0 +1,419 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+   <style>
+         /* NOTIFICATION BADGE IF THE ADMIN DO SOMETHING */ 
+      .notification-badge {
+         position: absolute;
+         top: 5px; /* Adjust the top position for vertical alignment */
+         left: 135px; /* Adjust the right position for horizontal alignment */
+         background-color: rgb(255, 0, 0);
+         color: rgb(255, 255, 255);
+         border-radius: 50%;
+         padding: 1px 6px; /* Adjust the padding for the badge */
+         font-size: 12px;
+      }
+      /* SLIDESHOW STYLES */ 
+      .swiper-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    overflow: hidden; /* Hide any overflowing content to remove spacing */
+    border: 5px solid black; /* Add a black border */
+    border-radius: 10px;
+    }
+
+    .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 0; /* Remove margin between slides */
+    padding: 0; /* Remove padding between slides */
+    }
+
+    .swiper-slide img {
+    max-width: auto;
+    max-height: auto;
+    }
+
+    /* CSS Styles for the Slideshow Container */
+    .slideshow-container {
+    background-color: #f5f5f5; /* Set the background color */
+    padding: 20px; /* Add padding for spacing */
+    border: 1px solid #ddd; /* Add a border */
+    border-radius: 5px; /* Add rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    }
+
+    /* BOX FOR ALL THE HOME INFORMATIONS */
+    .white-box {
+    background-color: white;
+    padding: 50px; /* You can adjust the padding as needed */
+    border: 1px solid #ddd; /* Add a border if desired */
+    border-radius: 15px; /* Add rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    width: 2020px; /* Adjust the width as needed */
+    margin: 30px auto 0 ;
+    }
+    /* Define styles for the text Available courses container */
+    .container-text {
+    text-align: left;
+    }
+
+
+    /* INDIVIDUAL CARDS DESIGN */
+    .card {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.card-header {
+    background-color: #343a40;
+    color: #fff;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-title {
+    font-weight: bold;
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+}
+
+.card-text {
+    font-size: 1rem;
+}
+
+.btn {
+    background-color: #343a40;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background-color: #23272b;
+}
+/* navigation bar hidden when scrolling */
+
+.navbar.sticky-top {
+    position: fixed;
+    top: 0;
+    width: 100%;
+  }
+
+   </style>
+   <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>ACRS | Academic Course Recommender</title>
+      <link rel="apple-touch-icon" sizes="128x128" href="{% static 'images/icon/apple-touch-icon.png' %}">
+      <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/icon/favicon-32x32.png' %}"> 
+      <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/icon/favicon-16x16.png' %}"> 
+      <link rel="manifest" href="{% static 'images/icon/site.webmanifest' %}">
+      <link rel="stylesheet" href="{% static 'styles/bootstrap.min.css' %}">
+      <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+      <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+      <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <script src="https://kit.fontawesome/com/c8e4d183c2.js" crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+      <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+      <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+      {{ form.media }}
+   </head>
+   <body>
+
+    <!-- Title Page -->
+
+      <!-- Navbar Starts -->
+      <nav class="navbar navbar-expand-lg navbar-dark navbar-mod">
+        <div class="container-fluid">
+           <!-- Title Page -->
+           <a class="navbar-brand fw-bold fs-5 px-2 py-1" href="/admin" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Access admin panel">
+              <img src="{% static 'images/icon/android-chrome-192x192.png' %}" alt="Logo" class="navbar-image" style="height: 30px; margin-right: 10px;">
+              Academic Course Recommendation System
+           </a> <!-- end of coding -->
+           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
+              aria-controls="navbarColor01" aria-expanded="true" aria-label="Toggle navigation">
+           <span class=" navbar-toggler-icon"></span>
+           </button>
+           <div class="collapse navbar-collapse" id="navbarColor01">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                <!-- STUDENT PROFILE HTML -->
+                  
+                <li class="nav-item">
+                    <a class="nav-link active fw-bold" href="{% url 'student_profile' student.student_id %}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Check your profile">
+                        <img src="{% static 'images/icon/student_profile.png' %}" alt="Home Page" class="image-class" style="height: 30px; margin-right: 10px;">
+                        {{ student.first_name }} {{ student.last_name }}
+                    </a>
+                </li>
+               
+                <!-- end of codes -->
+
+                <!-- for notifications -->
+
+                <li class="nav-item">
+                    <a class="nav-link active fw-bold" href="{% url 'notifications' %}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Show all notifications"> 
+                        <img src="{% static 'images/icon/bell.png' %}" alt="Notification Page" class="image-class" style="height: 30px; margin-right: 10px;">
+                        NOTIFICATIONS </a>
+                 </li>
+                 <!-- end of codes -->
+
+                 <!-- Home Page -->
+                 <li class="nav-item">
+                    <a class="nav-link active fw-bold" aria-current="page" href="{% url 'home' %}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Course home page">
+                        <img src="{% static 'images/icon/home.png' %}" alt="Home Page" class="image-class" style="height: 30px; margin-right: 10px;">
+                        HOME
+                    </a>
+                 </li>
+                 <!-- end of codes -->
+
+                 <!-- my dashboard page-->
+                 <li class="nav-item">
+                    <a class="nav-link active fw-bold" aria-current="page" href="{% url 'myCourses' %}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Dashboard Page"> 
+                        <img src="{% static 'images/icon/dashboard.png' %}" alt="Dashboard Page" class="image-class" style="height: 30px; margin-right: 10px;">
+                        MY DASHBOARD</a>
+                 </li>
+                 <!-- end of codes -->
+
+                 <!-- student community page (inprogress)-->
+                 <li class="nav-item">
+                    <a class="nav-link active fw-bold" href="{% url 'student_community' %}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Show Student Community"> 
+                        <img src="{% static 'images/icon/students.png' %}" alt="Student Community Page" class="image-class" style="height: 30px; margin-right: 10px;">
+                        STUDENT COMMUNITY </a>
+                 </li>
+                 <!-- end of codes -->
+
+                 <!-- logout page -->
+                 <li class="nav-item">
+                    <a class="nav-link active fw-bold" href="{% url 'std_logout' %}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Log out">
+                        <img src="{% static 'images/icon/power.png' %}" alt="Log out" class="image-class" style="height: 30px; margin-right: 10px;">
+                        LOG OUT </a>
+                 </li>
+                 <!-- end of code -->
+              </ul>
+           </div>
+        </div>
+     </nav>
+     <!-- Navbar Ends -->
+
+     <!-- nav bar hidden javascript -->
+     <script>
+        var prevScrollPos = window.pageYOffset;
+        window.onscroll = function() {
+          var currentScrollPos = window.pageYOffset;
+          if (prevScrollPos > currentScrollPos) {
+            // Scrolling up
+            document.querySelector('.navbar').style.top = '0';
+          } else {
+            // Scrolling down
+            document.querySelector('.navbar').style.top = '-80px'; // Adjust the value to your navbar's height
+          }
+          prevScrollPos = currentScrollPos;
+        }
+      </script>
+      <!-- end -->
+
+    <!-- Start Container in Home Page Informations -->
+    <br><h1 class="container-title" style="font-weight: bold; color: rgb(255, 255, 255); text-align: left;">&nbsp; Academic Course Recommender System</h1>
+
+    <div class="white-box">
+        <div class="container" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+            <h3 class="container-title" style="font-weight: bold; color: rgb(0, 0, 0); text-align: center;">ACRS How To's for Student</h3><br>
+    
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img src="{% static 'images/program_course.jpg' %}" alt="Picture 1">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="{% static 'images/program_course2.jpg' %}" alt="Picture 2">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="{% static 'images/program_course3.jpg' %}" alt="Picture 3">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="{% static 'images/program_course4.jpg' %}" alt="Picture 4">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="{% static 'images/program_course5.jpg' %}" alt="Picture 5">
+                    </div>
+                    <!-- Add more images as needed -->
+                <br>
+                </div>
+            </div>
+            <br>
+        </div>
+        <!-- other infos for ACRS -->
+            <br><h3 class="container-title" style="font-weight: bold; color: rgb(0, 0, 0); text-align: left;">&nbsp; How does our Academic Course Recommender System support students, educators, and academic institutions?</h3>
+            <br>
+                <ul>
+                    <br><li style="font-size: 22px;">Navigate your academic future confidently, aided by our Academic Course Recommender System, which simplifies course selection and fosters educational success.</li>
+                    <br><li style="font-size: 22px;">Uncover the ideal educational path, personalized to your goals, all thanks to the magic of our Academic Course Recommender System.</li>
+                    <br><li style="font-size: 22px;">Whether you're taking your first steps into learning or seeking advanced courses, our recommender system is your compass on the academic journey.</li>
+                    <br><li style="font-size: 22px;">Crafted to support students, educators, and academic institutions, our Academic Course Recommender System eases the complexities of course selection and curriculum planning.</li>
+                    <br><li style="font-size: 22px;">Empower yourself with a sophisticated tool that streamlines course selection, ensuring well-informed and prosperous academic journeys for learners from all walks of life.</li>
+                </ul>
+            <!-- Vision Statement -->
+            <br><br><h2 class="container-title" style="font-weight: bold; color: rgb(0,0,139); text-align: left;">&nbsp; VISION</h2>
+            <br>
+            <li style="font-size: 22px;">The College envisions an Information Technology Institution committed to the development and adequate utilization and applications of Information Technology.</li>
+            <!-- Mission Statement -->
+            <br><br><h2 class="container-title" style="font-weight: bold; color: rgb(0,0,139); text-align: left;">&nbsp; MISSION</h2>
+            <br>
+            <li style="font-size: 22px;">Guided by its vision of commitment, the College shall provide a competitive, relevant and functional IT Curriculum responsive to the needs of the industrial and business organizations of the City of Makati and entire nation.</li>
+            <!-- Core Values Statement -->
+            <br><br><h2 class="container-title" style="font-weight: bold; color: rgb(0,0,139); text-align: left;">&nbsp; CORE VALUES</h2>
+            <br>
+            <li style="font-size: 22px;"><strong>God Fearing</strong> – Demonstrates reverence and submission to Almighty God and living in a way that is considered morally upright</li>
+            <br>
+            <li style="font-size: 22px;"><strong>Industry</strong> – Shows diligence in pursuing assigned tasks</li>
+            <br>
+            <li style="font-size: 22px;"><strong>Fortitude</strong> – Expresses courage and strength in character</li>
+            <br>
+            <li style="font-size: 22px;"><strong>Trustworthy</strong> – Shows worth of confidence and deserving of trust</li>
+            <br>
+            <li style="font-size: 22px;"><strong>Creativity</strong> – Shows ability to make new things or ideas</li>
+            <!-- end of coding -->
+            
+            <!-- start coding for other container -->
+        <br><br><h3 class="container-title" style="font-weight: bold; color: rgb(0, 0, 0); text-align: left;">&nbsp; Available Courses in Department of (CCS), Computer Science</h3>
+
+        <!-- add individual cards -->
+        <br>
+        <div class="container">
+            <div class="row justify-content-start">
+                <!-- Computer Science Cards -->
+                <div class="col-md-6">
+                    <div class="card shadow mb-3" style="max-width: 40rem;">
+                        <div class="card-header" style="background-color: #040c27; color: white; font-weight: bold;">
+                            Computer Science
+                        </div>
+                        <div class="card-body">
+                            <img src="{% static 'images/cards/computer_science.jpg' %}" alt="Computer Science" class="img-fluid mb-3">
+                            <h5 class="card-title">Introduction to Computer Science</h5>
+                            <p class="card-text" style="text-align: justify;">
+                                Explore the fundamental concepts of computer science in this introductory course. Learn about algorithms, data structures, programming languages, and more. Whether you're new to the world of coding or looking to build a strong foundation, this course is the perfect starting point for your computer science journey.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Network Administration Cards -->
+                <div class="col-md-6">
+                    <div class="card shadow mb-3" style="max-width: 40rem;">
+                        <div class="card-header" style="background-color: #040c27; color: white; font-weight: bold;">
+                            Computer Network Administration
+                        </div>
+                        <div class="card-body">
+                            <img src="{% static 'images/cards/network_administration.jpg' %}" alt="Network Administration" class="img-fluid mb-3">
+                            <h5 class="card-title">Introduction to Network Administration</h5>
+                            <p class="card-text" style="text-align: justify;">
+                                Introduction to Network Administration is a fundamental course that provides an overview of key concepts and practices in managing computer networks. Students will learn the basics of network setup, configuration, and troubleshooting, as well as gain insights into network security and administration best practices. This course is an excellent starting point for those looking to pursue a career in network administration or related fields.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Application Dev Cards -->
+                <div class="col-md-6">
+                    <div class="card shadow mb-3" style="max-width: 40rem;">
+                        <div class="card-header" style="background-color: #040c27; color: white; font-weight: bold;">
+                            Computer Science Application Development
+                        </div>
+                        <div class="card-body">
+                            <img src="{% static 'images/cards/application_development.jpg' %}" alt="Application Development" class="img-fluid mb-3">
+                            <h5 class="card-title">Introduction to Application Development</h5>
+                            <p class="card-text" style="text-align: justify;">
+                                Explore the fundamentals of application development in this comprehensive course. Learn the essential programming languages, tools, and techniques to kickstart your journey as an app developer. Whether you're interested in web or mobile app development, this course provides the knowledge and skills you need to get started. Dive into the world of coding, design, and user experience to create innovative and user-friendly applications.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Social Computing Cards -->
+                <div class="col-md-6">
+                    <div class="card shadow mb-3" style="max-width: 40rem;">
+                        <div class="card-header" style="background-color: #040c27; color: white; font-weight: bold;">
+                            Computer Science Social Computing
+                        </div>
+                        <div class="card-body">
+                            <img src="{% static 'images/cards/social_computing.jpg' %}" alt="Social Computing" class="img-fluid mb-3">
+                            <h5 class="card-title">Introduction to Social Computing</h5>
+                            <p class="card-text" style="text-align: justify;">
+                                Explore the dynamic world of social computing with our introductory course. Gain insights into the impact of social media, online communities, and collaborative technologies on society. Learn how these digital platforms are shaping communication, information sharing, and social interactions. Dive into the fundamentals of social computing and its applications, equipping yourself with the skills to thrive in the digital age.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Computational Data Science Cards -->
+                <div class="col-md-6">
+                    <div class="card shadow mb-3" style="max-width: 40rem;">
+                        <div class="card-header" style="background-color: #040c27; color: white; font-weight: bold;">
+                            Computational & Data Sciences
+                        </div>
+                        <div class="card-body">
+                            <img src="{% static 'images/cards/data_sciences.jpg' %}" alt="Computational & Data Sciences" class="img-fluid mb-3">
+                            <h5 class="card-title">What is Computational & Data Sciences</h5>
+                            <p class="card-text" style="text-align: justify;">
+                                Computational & Data Sciences is an interdisciplinary field that explores the power of computational methods and data analysis in solving complex problems. This course introduces students to the fundamental principles of data science, computer programming, and statistical analysis. Through hands-on projects and real-world applications, students gain the skills to extract valuable insights from data, make data-driven decisions, and contribute to advancements in various domains, from business and healthcare to scientific research and beyond.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Network Security Cards -->
+                <div class="col-md-6">
+                    <div class="card shadow mb-3" style="max-width: 40rem;">
+                        <div class="card-header" style="background-color: #040c27; color: white; font-weight: bold;">
+                            Information & Network Security
+                        </div>
+                        <div class="card-body">
+                            <img src="{% static 'images/cards/network_security.jpg' %}" alt="Information & Network Security" class="img-fluid mb-3">
+                            <h5 class="card-title">Does Information & Network Security Accurate?</h5>
+                            <p class="card-text" style="text-align: justify;">
+                                Learn the core principles of securing information and networks, and gain the skills to protect digital assets against cyber threats. Explore the accuracy and reliability of security measures in this comprehensive course.
+                            </p>
+                            <p class="card-text" style="text-align: justify;">
+                                Explore the principles and practices of safeguarding digital information and networks. Learn about encryption, firewall technologies, threat detection, and security best practices to protect against cyber threats and vulnerabilities. Gain essential skills to secure data and maintain the integrity of network systems.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- END OF CODES -->
+    </div>
+
+    
+    <!-- END OF CODES -->
+
+      {% block  content %}
+      {% endblock  %}
+      <script src=" {% static 'js/bootstrap.bundle.min.js' %} "></script>
+      <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js">
+
+      </script>
+
+   <script>
+   var swiper = new Swiper('.swiper-container', {
+       loop: true,  // Enable continuous loop
+       speed: 500, // Transition speed in milliseconds
+       autoplay: {
+           delay: 1000, // Transition every 1 second (1000 milliseconds)
+         },
+      });
+   </script>
+
+   </body>
+</html>

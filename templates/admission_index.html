@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>ACRS | CCIS Admission Requirements</title>
+      <link rel="apple-touch-icon" sizes="128x128" href="{% static 'images/icon/apple-touch-icon.png' %}">
+      <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/icon/favicon-32x32.png' %}"> 
+      <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/icon/favicon-16x16.png' %}"> 
+      <link rel="manifest" href="{% static 'images/icon/site.webmanifest' %}">
+      <link rel="stylesheet" href="{% static 'styles/bootstrap.min.css' %}">
+      <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <script src="https://kit.fontawesome/com/c8e4d183c2.js" crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+      {{ form.media }}
+   </head>
+<body>
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark navbar-mod">
+        <!-- BACK BUTTON FOR REGISTRATION TO DASHBOARD -->
+        <a href="{% url 'std_login' %}" title="Go back to Dashboard" style="display: flex; align-items: center; text-decoration: none;">
+            <img src="{% static 'images/icon/left-arrow.png' %}" style="height: 2.0rem; margin-left: 10px;">
+            <span style="margin-left: 15px; color: rgb(255, 255, 255); font-weight: bold;">BACK TO DASHBOARD</span>
+        </a>
+        <!-- end of coding -->
+    </nav>
+
+    <div class="text-center mt-5">
+        <h1 class="display-3" a style="color: rgb(255, 255, 255)">Admission Requirements</h1>
+    </div>
+    <br>
+    
+    <!-- Additional Text For Dashboard -->
+    <div class="text-left" style="color: rgb(255, 255, 255); width: 1500px; padding-left: 30px;">
+        <br>
+        <br><p class="breadcrumb-item active animate__animated animate__backInRight"><h3>Bachelor of Science in Computer Science (Application Development Elective Track)</h3></p>
+        <br>
+        <hr style="border-top: 5px solid white;">
+        
+        <p class="breadcrumb-item active animate__animated animate__backInRight"><h5>Requirements Grades for ADE - (Application Development Elective Track)</h5></p> 
+        <br><li class="breadcrumb-item active animate__animated animate__backInRight">Excellent - Average | GWA: 83% and above</li> 
+        <br><li class="breadcrumb-item active animate__animated animate__backInRight">No grades lower than 85% in Mathematics and English</li>
+        <br><li class="breadcrumb-item active animate__animated animate__backInRight">Interview with the Department Chair</li>
+        <br><li class="breadcrumb-item active animate__animated animate__backInRight">GWA: 2.00 (85% to 87%) or higher | No Failing Grade, No Unofficially
+            Dropped, No Incomplete | Letter of Approval from the former College </li> 
+        <br><li class="breadcrumb-item active animate__animated animate__backInRight">GWA 2.00 (85% to 87%) | No Failing Grade, No Unofficially
+            Dropped, No Incomplete | No Incoming Third or Fourth Year</li> 
+        <br><li class="breadcrumb-item active animate__animated animate__backInRight">TOR Evaluation/Validation | GWA 2.00 (85% to 87%) or higher | No Failing Grade, No Unofficially
+            Dropped, No Incomplete</li>
+        
+        <br>
+
+        <hr style="border-top: 5px solid white;">
+
+        
+
+        <br><p class="breadcrumb-item active animate__animated animate__backInRight"><h3>Bachelor of Science in Information Technology (Information and Network Security Elective Track)</h3></p>
+        <br>  
+        <hr style="border-top: 5px solid white;">
+
+        <p class="breadcrumb-item active animate__animated animate__backInRight"><h5>Requirements Grades for INS - (Information and Network Security)</h5></p> 
+        <br><li class="breadcrumb-item active animate__animated animate__backInRight">GWA: 83% and above | No grades lower than 85% in Mathematics and English | Interview with the Department Chair</li> 
+        <br><li class="breadcrumb-item active animate__animated animate__backInRight">GWA: 2.00 (85% to 87%) or higher | No Failing Grade, No Unofficiall Dropped, No Incomplete | Letter of Approval from the former College</li> 
+        <br><li class="breadcrumb-item active animate__animated animate__backInRight"> GWA 2.00 (85% to 87%) | No Failing Grade, No Unofficially Dropped, No Incomplete | No Incoming Third or Fourth Year</li> 
+        <br><li class="breadcrumb-item active animate__animated animate__backInRight">TOR Evaluation/Validation | GWA 2.00 (85% to 87%) or higher | No Failing Grade, No Unofficially Dropped, No Incomplete</li>
+
+
+        <hr style="border-top: 5px solid white;">
+
+        
+
+        <br><p class="breadcrumb-item active animate__animated animate__backInRight"><h3>Diploma in Application Development</h3></p>
+        <br>  
+        <hr style="border-top: 5px solid white;">
+
+        <p class="breadcrumb-item active animate__animated animate__backInRight"><h5>Requirements Grades for (Diploma in Application Development)</h5></p> 
+        <br><li class="breadcrumb-item active animate__animated animate__backInRight">Low Average - Below Average | GWA: 80% and above | Interview with the Department Chair</li> 
+        <br><li class="breadcrumb-item active animate__animated animate__backInRight">GWA 2.50 (79% to 81%) or higher | No Failing Grade, No Unofficially Dropped, No Incomplete | Letter of Approval from the former College</li> 
+        
+        <hr style="border-top: 5px solid white;">
+
+        <br><p class="breadcrumb-item active animate__animated animate__backInRight"><h3>Diploma in Computer Network Administration</h3></p>
+        <br>  
+        <hr style="border-top: 5px solid white;">
+
+        <p class="breadcrumb-item active animate__animated animate__backInRight"><h5>Requirements Grades for (Diploma in Computer Network Administration)</h5></p> 
+        <br><li class="breadcrumb-item active animate__animated animate__backInRight">Low Average - Below Average | GWA: 80% and above | Interview with the Department Chair</li> 
+        <br><li class="breadcrumb-item active animate__animated animate__backInRight">GWA 2.50 (79% to 81%) or higher | No Failing Grade, No Unofficially Dropped, No Incomplete | Letter of Approval from the former College</li> 
+        
+        <br>
+        <hr style="border-top: 5px solid white;">
+    </div>        
+     <!-- End of Additional Text For Dashboard -->
+
+
+ <script>
+    function goBack() {
+       window.history.back();
+    }
+ </script>     
+</body>
+</html>

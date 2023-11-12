@@ -1,0 +1,314 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+   <style>
+      
+    /* BOX FOR ALL THE STUDENT PROFILE INFORMATIONS */
+      .white-box {
+    background-color: white;
+    padding: 50px; /* You can adjust the padding as needed */
+    border: 1px solid #ddd; /* Add a border if desired */
+    border-radius: 15px; /* Add rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    width: 1200px; /* Adjust the width as needed */
+    margin: 30px auto 0 ;
+    }
+    .image-container {
+        width: 10rem;
+        height: 10rem;
+        border: 5px solid #000;
+        border-radius: 50%;
+        overflow: hidden;
+    }
+    .image-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }  
+   </style>
+<head>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ACRS | Student Profile </title>
+        <link rel="apple-touch-icon" sizes="128x128" href="{% static 'images/icon/apple-touch-icon.png' %}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/icon/favicon-32x32.png' %}"> 
+        <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/icon/favicon-16x16.png' %}"> 
+        <link rel="manifest" href="{% static 'images/icon/site.webmanifest' %}">
+        <link rel="stylesheet" href="{% static 'styles/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://kit.fontawesome/com/c8e4d183c2.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+        {{ form.media }}
+     </head>
+</head>
+<body>
+
+    <!-- BACK BUTTON FOR REGISTRATION TO DASHBOARD -->
+    <a href="{% url 'home' %}" title="Go back to Dashboard" style="display: flex; align-items: center; text-decoration: none;">
+        <img src="{% static 'images/icon/left-arrow.png' %}" style="height: 2.0rem; margin-left: 10px;">
+        <span style="margin-left: 15px; color: rgb(255, 255, 255); font-weight: bold;">BACK TO DASHBOARD</span>
+    </a>
+    <!-- end of coding -->
+
+    <!-- Start Container in Student Profile -->
+    <br><br><h1 class="container-title text-center" style="font-weight: bold; color: rgb(255, 255, 255);">Student Profile Information</h1>
+
+    <div class="white-box">
+      <div class="container" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+          <h3 class="container-title" style="font-weight: bold; color: rgb(0, 0, 0); text-align: center;">{{student.first_name}} {{student.middle_name}} {{student.last_name}}</h3>   
+      </div>
+      <!-- STUDENT PROFILE SET -->
+      <div class="d-flex flex-column align-items-center">
+        <div class="my-3">
+            <div class="image-container rounded-circle">
+                <img src="/media/{{ student.photo }}" alt="image" class="rounded-circle">
+            </div>
+        </div>
+         <!-- STUDENT CHANGE PASSWORD AND CHANGE PROFILE SET -->
+         <div class="d-flex justify-content-center">
+            <a href="{% url 'changePasswordPrompt'  %}" class="btn btn-sm btn-primary border my-2 mx-1">Change Password</a>
+            <a href="{% url 'changePhotoPrompt'  %}" class="btn btn-sm btn-primary border my-2 mx-1">Change Profile Picture</a>
+         </div>
+           <!-- end of coding -->  
+     </div>
+    <!-- end of coding -->
+     <br>
+    <!-- Start codes for Personal Information -->
+    <div class="container">
+      <div class="row">
+          <!-- Personal Information -->
+          <div class="col-md-6">
+              <h3 class="container-title" style="font-weight: bold; color: rgb(0, 0, 0); text-align: center;">Personal Information</h3>
+              <div class="card shadow p-3 mb-5 bg-light rounded" style="max-width: 50rem;">
+                  <div class="card-header bg-lightblue text-white">
+                      Student Information
+                  </div>
+                  <div class="card-body">
+                      <h5><strong>Student ID:</strong> <span class="mx-2 text-black">{{student.student_id}}</span></h5>
+                      <br>
+                      <h5><strong>Date of Birth:</strong> <span class="mx-2 text-black">{{student.date_of_birth}}</h5></span>
+                      <br>
+                      <h5><strong>Place of Birth:</strong> <span class="mx-2 text-black">{{student.place_of_birth}}</h5></span>
+                      <br>
+                      <h5><strong>Gender:</strong> <span class="mx-2 text-black">{{student.gender}}</h5></span>
+                      <br>
+                      <h5><strong>Religion:</strong> <span class="mx-2 text-black">{{student.religion}}</h5></span>
+                      <br>
+                      <h5><strong>Civil Status:</strong> <span class="mx-2 text-black">{{student.civil_status}}</h5></span>
+                      <br>
+                      <h5><strong>Citizenship:</strong> <span class="mx-2 text-black">{{student.citizenship}}</h5></span>
+                      <br>
+                      <h5><strong>Contact No.</strong>: <span class="mx-2 text-black">{{student.contact_number}}</h5></span>
+                      <br>
+                      <h5><strong>Email Address:</strong> <span class="mx-2 text-black">{{student.email}}</h5></span>
+                      <!-- <h5><strong>Department:</strong> <span class="mx-2 text-black">{{student.department}}</h5></span> -->
+                  </div>
+              </div>
+          </div>
+  
+          <!-- Complete Address Information -->
+          <div class="col-md-6">
+              <h3 class="container-title" style="font-weight: bold; color: rgb(0, 0, 0); text-align: center;">Complete Address Information</h3>
+            <div class="card shadow p-3 mb-5 bg-light rounded" style="max-width: 50rem;">
+               <div class="card-header bg-lightblue text-white">
+                   Permanent Home Address Information
+               </div>
+               <div class="card-body">
+                   <h5><strong>Region:</strong> <span class="mx-2 text-black">{{student.region}}</h5></span>
+                   <br>
+                   <h5><strong>Province:</strong> <span class="mx-2 text-black">{{student.province}}</h5></span>
+                   <br>
+                   <h5><strong>City / Municipality:</strong> <span class="mx-2 text-black">{{student.city}}</h5></span>
+                   <br>
+                   <h5><strong>Barangay:</strong> <span class="mx-2 text-black">{{student.barangay}}</h5></span>
+               </div>
+           </div>
+         </div>
+         <!-- Preffered Program of Study Information -->
+         <div class="col-md-6">
+            <h3 class="container-title" style="font-weight: bold; color: rgb(0, 0, 0); text-align: center;">Program of Study</h3>
+            <div class="card shadow p-3 mb-5 bg-light rounded" style="max-width: 50rem;">
+                <div class="card-header bg-lightblue text-white">
+                  Preffered Program of Study
+                </div>
+                <div class="card-body">
+                  <div class="text-center">
+                     <h5><strong>Program Course Choice 1</strong></h5>
+                     <h5>{{student.course1}}</h5>
+                 </div>
+                 <br>
+                 <div class="text-center">
+                  <h5><strong>Program Course Choice 2</strong></h5>
+                  <h5>{{student.course2}}</h5>
+                 </div>   
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional Information -->
+        <div class="col-md-6">
+            <h3 class="container-title" style="font-weight: bold; color: rgb(0, 0, 0); text-align: center;">Additional Information</h3>
+          <div class="card shadow p-3 mb-5 bg-light rounded" style="max-width: 50rem;">
+             <div class="card-header bg-lightblue text-white">
+                 Personal Additional Information
+             </div>
+             <div class="card-body">
+                 <h5><strong>Senior Highschool Track in G11:</strong> <span class="mx-2 text-black">{{student.senior_high_track}}</h5></span>
+                 <br>
+                 <h5><strong>General Weighted Average in G11:</strong> <span class="mx-2 text-black">{{student.gwa}} %</h5></span>
+                 <br>
+                 <h5><strong>Senior Highschool Track in G12:</strong> <span class="mx-2 text-black">{{student.senior_high_track_g12}}</h5></span>
+                 <br>
+                 <h5><strong>General Weighted Average in G12:</strong> <span class="mx-2 text-black">{{student.gwa_g12}} %</h5></span>
+
+             </div>
+         </div>
+       </div>
+     <!-- Grades from Senior High  -->
+     <div class="col-md-6">
+      <h3 class="container-title" style="font-weight: bold; color: rgb(0, 0, 0); text-align: center;">Senior Highschool Grades</h3>
+      <div class="card shadow p-3 mb-5 bg-light rounded" style="max-width: 50rem;">
+          <div class="card-header bg-lightblue text-white">
+            Grades in every subject's
+          </div>
+          <div class="card-body">
+            <div class="text-center">
+               <h5><strong>Oral Communication</strong></h5>
+               <h5>{{student.oralcom}} %</h5>
+           </div>
+           <br>
+           <div class="text-center">
+            <h5><strong>General Mathematics:</strong></h5>
+            <h5>{{student.genmath}} %</h5>
+           </div>
+           <br>
+           <div class="text-center">
+            <h5><strong>Earth and Life Science</strong></h5>
+            <h5>{{student.earthscie}} %</h5>
+           </div>
+           <br>
+           <div class="text-center">
+            <h5><strong>Probability and Statistics</strong></h5>
+            <h5>{{student.probstats}} %</h5>
+           </div>
+        </div>
+      </div>
+  </div>
+  <!-- Educational Background -->
+  <div class="col-md-6">
+   <h3 class="container-title" style="font-weight: bold; color: rgb(0, 0, 0); text-align: center;">Educational Background</h3>
+   <div class="card shadow p-3 mb-5 bg-light rounded" style="max-width: 50rem;">
+       <div class="card-header bg-lightblue text-white">
+         Education Background
+       </div>
+       <div class="card-body">
+         <div class="text-center">
+            <h5><strong>Grade School</strong></h5>
+            <h5>{{student.grade_school_name}} {{student.grade_school_year_graduated}}</h5>
+        </div>
+        <br>
+        <div class="text-center">
+         <h5><strong>Junior Highschool:</strong></h5>
+         <h5>{{student.junior_high_school_name}} {{student.junior_high_school_year_graduated}}</h5>
+        </div>
+        <br>
+        <div class="text-center">
+         <h5><strong>Senior Highschool</strong></h5>
+         <h5>{{student.senior_high_school_name}} {{student.senior_high_school_year_graduated}}</h5>
+        </div>
+        <br>
+        <div class="text-center">
+         <h5><strong>Vocational School:</strong></h5>
+         <h5>{{student.vocational_school_name}} {{student.vocational_school_year_graduated}}</h5>
+        </div>
+     </div>
+   </div>
+</div>
+   </div>
+</div> <!-- end of codes -->
+
+   <!-- for parent emergency contact -->
+   <div class="container">
+      <div class="row">
+         <!-- Father Information -->
+         <div class="col-md-6">
+            <h3 class="container-title" style="font-weight: bold; color: rgb(0, 0, 0); text-align: center;">In Case of Emergency, Father's Contact </h3>
+            <div class="card shadow p-3 mb-5 bg-light rounded" style="max-width: 50rem;">
+                <div class="card-header bg-lightblue text-white">
+                    Father's Contact Information
+                </div>
+                <div class="card-body">
+                    <h5><strong>Father's Name:</strong> <span class="mx-2 text-black">{{student.father_full_name}}</span></h5>
+                    <br>
+                    <h5><strong>Contact Number:</strong> <span class="mx-2 text-black">{{student.father_contact_no}}</h5></span>
+                    <br>
+                    <h5><strong>Status of Occupation:</strong> <span class="mx-2 text-black">{{student.occupation}}</h5></span>
+                    <br>
+                    <h5><strong>Home Address:</strong> <span class="mx-2 text-black">{{student.father_home_add}}</h5></span>
+                    <br>
+                    <h5><strong>Email Address:</strong> <span class="mx-2 text-black">{{student.father_email_add}}</h5></span>
+                    <br>
+                    <h5><strong>Income of Parent:</strong> <span class="mx-2 text-black">₱ {{student.income}}</h5></span>
+                </div>
+            </div>
+        </div>
+        <!-- Mother Information -->
+        <div class="col-md-6">
+         <h3 class="container-title" style="font-weight: bold; color: rgb(0, 0, 0); text-align: center;">In Case of Emergency, Mother's Contact</h3>
+         <div class="card shadow p-3 mb-5 bg-light rounded" style="max-width: 50rem;">
+             <div class="card-header bg-lightblue text-white">
+                 Mother's Contact Information
+             </div>
+             <div class="card-body">
+                 <h5><strong>Mother's Name:</strong> <span class="mx-2 text-black">{{student.mother_full_name}}</span></h5>
+                 <br>
+                 <h5><strong>Contact Number:</strong> <span class="mx-2 text-black">{{student.mother_contact_no}}</h5></span>
+                 <br>
+                 <h5><strong>Status of Occupation:</strong> <span class="mx-2 text-black">{{student.moth_occupation}}</h5></span>
+                 <br>
+                 <h5><strong>Home Address:</strong> <span class="mx-2 text-black">{{student.mother_home_add}}</h5></span>
+                 <br>
+                 <h5><strong>Email Address:</strong> <span class="mx-2 text-black">{{student.mother_email_add}}</h5></span>
+                 <br>
+                 <h5><strong>Income of Parent:</strong> <span class="mx-2 text-black">₱ {{student.moth_income}}</h5></span>
+             </div>
+         </div>   
+      </div>
+   </div>
+</div><!-- end of codes -->
+   
+
+
+
+
+
+
+
+
+
+
+</div> <!-- end code for white box -->
+         
+      
+  
+
+   <!-- Display the success message here -->
+{% if messages %}
+   {% for message in messages %}
+   <div class="alert alert-success mt-3" role="alert">
+      {{ message }}
+   </div>
+   {% endfor %}
+{% endif %}
+<!-- end of coding -->
+
+
+</div>
+</body>
+</html>

@@ -1,0 +1,196 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+   <style>
+         /* NOTIFICATION BADGE IF THE ADMIN DO SOMETHING */ 
+      .notification-badge {
+         position: absolute;
+         top: 5px; /* Adjust the top position for vertical alignment */
+         left: 515px; /* Adjust the right position for horizontal alignment */
+         background-color: rgb(255, 0, 0);
+         color: rgb(255, 255, 255);
+         border-radius: 50%;
+         padding: 1px 6px; /* Adjust the padding for the badge */
+         font-size: 12px;
+      }
+      /* SLIDESHOW STYLES */ 
+    .swiper-container {
+        width: 50%; /* Adjust the width as needed */
+        max-width: 350px; /* Set a maximum width */
+        margin: 0 auto; /* Center the container horizontally */
+    }
+
+    .swiper-slide {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .swiper-slide img {
+        max-width: 100%; /* Make images responsive to container width */
+        max-height: 300px; /* Adjust the maximum height as needed */
+    }
+    /* navigation bar hidden when scrolling */
+
+   .navbar.sticky-top {
+    position: fixed;
+    top: 0;
+    width: 100%;
+  }
+   </style>
+   <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>ACRS | Academic Course Recommender</title>
+      <link rel="apple-touch-icon" sizes="128x128" href="{% static 'images/icon/apple-touch-icon.png' %}">
+      <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/icon/favicon-32x32.png' %}"> 
+      <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/icon/favicon-16x16.png' %}"> 
+      <link rel="manifest" href="{% static 'images/icon/site.webmanifest' %}">
+      <link rel="stylesheet" href="{% static 'styles/bootstrap.min.css' %}">
+      <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+      <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+      <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <script src="https://kit.fontawesome/com/c8e4d183c2.js" crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+      {{ form.media }}
+   </head>
+   <body>
+      <!-- Navbar Starts -->
+      <nav class="navbar navbar-expand-lg navbar-dark navbar-mod">
+         <div class="container-fluid">
+            <!-- Title Page -->
+            <a class="navbar-brand fw-bold fs-5 px-2 py-1" href="/admin" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Access admin panel">
+               <img src="{% static 'images/icon/android-chrome-192x192.png' %}" alt="Logo" class="navbar-image" style="height: 30px; margin-right: 10px;">
+               Academic Course Recommendation System
+           </a> <!-- end of coding -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
+               aria-controls="navbarColor01" aria-expanded="true" aria-label="Toggle navigation">
+            <span class=" navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarColor01">
+               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                  <!-- for notif bell -->
+
+                  <li class="nav-item" style="margin-right: 15px;">
+                     <a href="{% url 'notifications' %}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Notifications" id="notificationDropdown">
+                        <img src="{% static 'images/icon/bell.png' %}" alt="Bell Icon" style="height: 2.0rem;">
+                        <span class="notification-badge" id="notification-badge">0</span>
+                    </a>
+                 </li>
+               
+                  <!-- end of codes -->
+
+                  <!-- <li class="nav-item">
+                     <a class="nav-link active fw-bold" href="{% block profile %}{% endblock profile %}"
+                         data-bs-toggle="tooltip" data-bs-placement="bottom"
+                         title="Check your profile"> {{ student.first_name }} {{ student.last_name }} </a>
+                  </li> -->
+
+                  <!-- STUDENT PROFILE HTML -->
+                  
+                  <li class="nav-item">
+                     <a class="nav-link active fw-bold" href="{% url 'student_profile' student.student_id %}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Check your profile">
+                         <img src="{% static 'images/icon/student_profile.png' %}" alt="Home Page" class=" image-class" style="height: 30px; margin-right: 10px;">
+                         {{ student.first_name }} {{ student.last_name }}
+                     </a>
+                 </li>
+                  
+                  <!-- Home Page -->
+                 <li class="nav-item">
+                  <a class="nav-link active fw-bold" aria-current="page" href="{% url 'home' %}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Course home page">
+                      <img src="{% static 'images/icon/home.png' %}" alt="Home Page" class="image-class" style="height: 30px; margin-right: 10px;">
+                      HOME
+                  </a>
+               </li>
+               <!-- end of codes -->
+
+
+                   <!-- my dashboard page-->
+                 <li class="nav-item">
+                  <a class="nav-link active fw-bold" aria-current="page" href="{% url 'myCourses' %}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Dashboard Page"> 
+                      <img src="{% static 'images/icon/dashboard.png' %}" alt="Dashboard Page" class="image-class" style="height: 30px; margin-right: 10px;">
+                      MY DASHBOARD</a>
+               </li>
+               <!-- end of codes -->
+
+                  <!-- student community page (inprogress)-->
+                  <li class="nav-item">
+                     <a class="nav-link active fw-bold" href="{% url 'student_community' %}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Show Student Community"> 
+                         <img src="{% static 'images/icon/students.png' %}" alt="Student Community Page" class="image-class" style="height: 30px; margin-right: 10px;">
+                         STUDENT COMMUNITY </a>
+                  </li>
+               <!-- end of codes -->
+                  
+                  
+
+                  <!-- <li class="nav-item">
+                     <a class="nav-link active fw-bold" href="{% block allCourses %}{% endblock %}" data-bs-toggle="tooltip"
+                        data-bs-placement="bottom" title="Show all courses"> PROGRAM COURSES </a>
+                  </li> -->
+
+                  <!-- end of codes -->
+
+                  <!-- <li class="nav-item">
+                     <a class="nav-link active fw-bold" aria-current="page" href="/departments"
+                        data-bs-toggle="tooltip" data-bs-placement="bottom" title="Show all departments"> DEPARTMENTS </a>
+                  </li> -->
+
+                  <!-- logout page -->
+                 <li class="nav-item">
+                  <a class="nav-link active fw-bold" href="{% url 'std_logout' %}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Log out">
+                      <img src="{% static 'images/icon/power.png' %}" alt="Log out" class="image-class" style="height: 30px; margin-right: 10px;">
+                      LOG OUT </a>
+               </li>
+               <!-- end of code -->
+               <!-- nav bar hidden javascript -->
+     <script>
+      var prevScrollPos = window.pageYOffset;
+      window.onscroll = function() {
+        var currentScrollPos = window.pageYOffset;
+        if (prevScrollPos > currentScrollPos) {
+          // Scrolling up
+          document.querySelector('.navbar').style.top = '0';
+        } else {
+          // Scrolling down
+          document.querySelector('.navbar').style.top = '-80px'; // Adjust the value to your navbar's height
+        }
+        prevScrollPos = currentScrollPos;
+      }
+    </script>
+    <!-- end -->
+    
+               </ul>
+               <form class="d-flex" action=" {% url 'search' %}" method="GET">
+                  <input id="searchIn" class="form-control me-2 searchbar" type="search" placeholder="Search courses" aria-label="Search"
+                     name="q">
+                  <button id="searchBtn" class="btn btn-outline-light" type="submit">Search</button>
+               </form>
+            </div>
+         </div>
+      </nav>
+      <!-- Navbar Ends -->
+
+      {% block  content %}
+      {% endblock  %}
+      <script src=" {% static 'js/bootstrap.bundle.min.js' %} "></script>
+      <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+
+   <script>
+   var swiper = new Swiper('.swiper-container', {
+       loop: true,  // Enable continuous loop
+       speed: 500, // Transition speed in milliseconds
+       autoplay: {
+           delay: 1000, // Transition every 1 second (1000 milliseconds)
+         },
+      });
+   </script>
+
+   </body>
+</html>

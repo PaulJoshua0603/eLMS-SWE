@@ -1,0 +1,92 @@
+{% extends 'index.html' %}
+{% block title %} Courses | PRS {% endblock title %}
+{% block profile %}
+{% if faculty  %} {% url 'profile' faculty.faculty_id %}
+{% else %} {% url 'profile' student.student_id %}
+{% endif %}
+{% endblock %}
+{% block user %}
+{% if faculty %} {{faculty.name}}
+{% else %} {{student.name}}
+{% endif %}
+{% endblock user %}
+{% block courses %}
+{% url 'myCourses' %}
+{% endblock courses %}
+{% block allCourses %}
+{% url 'courses' %}
+{% endblock %}
+{% block content %}
+<div class="container">
+   <!-- navigation links -->
+   <div class="container shadow-sm">
+      <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+         <ol class="breadcrumb p-3">
+            <li class="breadcrumb-item active animate__animated animate__backInRight" aria-current="page"><h4>List of Program Courses Available in CCS Department</h4></li>
+           </ol>
+           <hr style="border-top: 5px solid white;">
+           <ol class="breadcrumb p-3">  
+            <li class="breadcrumb-item active animate__animated animate__backInRight" aria-current="page"><b style="margin-right: 10px;">INSTRUCTIONS: </b>To gain access to different courses, you need to type the number indicated on the department code.</b></li>
+            </ol>
+            <ol class="breadcrumb p-3">  
+               <li class="breadcrumb-item active animate__animated animate__backInRight" aria-current="page"><b style="margin-right: 10px;">SAMPLE: </b>BSIT INS-1 type (1) for program course access key.</b></li>
+            </ol>
+            <hr style="border-top: 5px solid white;">
+      </nav>
+   </div>
+   <!-- navigation links end -->
+
+      <!-- Algorith Section Coding (inprogress) -->
+   <div class="container shadow-sm">
+      <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+         <ol class="breadcrumb p-3">
+            <li class="breadcrumb-item active" aria-current="page"><h5>Recommendations Course For You: </h5></li>
+            
+         </ol>
+      </nav>
+   </div>
+   <!-- end  of coding -->
+   
+   <!-- Additional Container For List of Enrolled Courses --> 
+   <div class="container">
+      <div class="container shadow-sm">
+         <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+            <ol class="breadcrumb p-3">
+               <li class="breadcrumb-item active" aria-current="page"><h5>Recommendations For You: </h5></li>
+            </ol>
+         </nav>
+      </div>
+      <!-- End of Additional Container For List of Enrolled Courses-->
+
+   <div class="row gy-5">
+      {% if courses %}
+      {% for course in courses%}
+      <!-- individual card starts -->
+      <div class="col-sm-6 d-flex align-items-stretch justify-content-center animate__animated animate__zoomIn">
+         <div class="card shadow" style="width: 35rem !important;">
+            <div class="class-header text-center text-light border-bottom bg-dark rounded">
+               <h6 class="my-2"> Department of {{course.department}}</h6>
+            </div>
+            <div class="card-body d-flex flex-column align-items-center">
+               <h5 class="card-title fw-bold">{{course.department}}-{{course.code}} : {{course.name}}</h5>
+               {% comment %} if student {% endcomment %}
+               {% if course not in enrolled%}
+               <a href="{% url 'access' course.code %}" class="btn btn-outline-dark"><span class="px-2">View More</span></a>
+               {% else %}
+               <a href="{% url 'course' course.code %}" class="btn btn-outline-dark"><span
+                  class="px-3">View More</span></a>
+               {% endif %}
+            </div>
+         </div>
+      </div>
+      
+      <!-- individual card ends -->
+      {% endfor %}
+   </div>
+   {% else %}
+   <div class="text-center h4 text-secondary">No courses to show</div>
+   {% endif %}
+</div>
+<br>
+<hr style="border-top: 5px solid white;">
+{% endblock  %}

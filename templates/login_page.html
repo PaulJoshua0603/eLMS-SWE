@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Log in</title>
+      <link rel="apple-touch-icon" sizes="128x128" href="{% static 'images/icon/apple-touch-icon.png' %}"> 
+      <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/icon/favicon-32x32.png' %}"> 
+      <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/icon/favicon-16x16.png' %}"> 
+      <link rel="manifest" href="{% static 'images/icon/site.webmanifest' %}">
+      <link rel="stylesheet" href="{% static 'styles/bootstrap.min.css' %}">
+      <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+      <link rel="stylesheet" href="{% static 'styles/style-login.css' %}">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+   </head>
+   <body>
+      <div class="main">
+         <section class="sign-in">
+            <div class="container">
+               <div class="signin-content d-flex flex-column align-items-center">
+                  <!-- <div class="signin-image">
+                     <figure><img src="{% static 'images/icon/android-chrome-192x192.png' %}" alt="sing up image"></figure>
+                  </div> -->
+                  <div class="signin-form text-center">
+                     <div class="image-at-top">
+                        <figure>
+                            <img src="{% static 'images/icon/android-chrome-192x192.png' %}" alt="sign up image">
+                        </figure>
+                     <h2 class="form-title">Sign in to Academic Course Recommendation System</h2>
+                     <form method="POST" class="register-form" id="login-form">
+                           {% csrf_token %}
+                           <div class="form-group">
+                              <label for="{{ form.id.id_for_label }}"><span class="material-symbols-outlined" style="vertical-align:text-bottom">person</span></label>
+                              <input type="text" id="{{ form.id.id_for_label }}" name="{{ form.id.name }}" placeholder="Enter ID Number">
+                          </div>
+                        
+                        <!-- editing in progress -->
+                        <div class="form-group">
+                           <label for="{{ form.password.id_for_label }}"><span class="material-symbols-outlined" style="vertical-align:text-bottom">lock</span></label>
+                           <input type="password" id="{{ form.password.id_for_label }}" name="{{ form.password.name }}" placeholder="Enter Password">
+                        </div>
+                        <!-- end of coding -->
+
+                           
+                           <div class="d-grid">
+                              <button class="btn btn-lg btn-primary btn-login text-uppercase fw-bold mb-2" type="submit">Sign in</button>
+                           </div>
+                           
+                     </form>
+                     <div class="d-flex justify-content-around flex-wrap">
+                        <div class="">
+                           <div class="dropdown">
+                              <p>Don't have an account? <a href="{% url 'register_user' %}">Register here!</a></p>
+                              <a class="dropdown-toggle" id="dropdownMenuButton1"
+                                 data-bs-toggle="dropdown" aria-expanded="false" role="button">
+                              Sign in as Student
+                              
+                              </a>
+                              <!-- <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                 <li><a class="dropdown-item" href="/student">Student</a></li>
+                                 <li><a class="dropdown-item" href="/teacher">Teacher</a></li> 
+                              </ul> -->
+                           </div>
+                        </div>
+                        
+                     </div> 
+                     </div>
+                     {% if error_messages %}
+                     <!-- Error Alert -->
+                     <div class="alert alert-danger alert-dismissible fade show my-2">
+                        {% for message in error_messages %}
+                        {{ message }}
+                        {% endfor %}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                     </div>
+                     {% endif %}
+                  </div>
+               </div>
+            </div>
+         </section>
+      </div>
+
+      <script src=" {% static 'js/bootstrap.bundle.min.js' %} "></script>
+      <script>
+         if (window.history.replaceState) {
+             window.history.replaceState(null, null, window.location.href);
+         }     
+      </script>
+   </body>
+</html>
